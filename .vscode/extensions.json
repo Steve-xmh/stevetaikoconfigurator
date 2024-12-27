@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "tauri-apps.tauri-vscode",
+    "belfz.search-crates-io",
+    "tamasfe.even-better-toml",
+    "rust-lang.rust-analyzer",
+    "vadimcn.vscode-lldb",
+    "biomejs.biome"
+  ]
+}

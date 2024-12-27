@@ -1,0 +1,6 @@
+{
+  "template": {
+    "title": "Tauri + React + RadixUI 桌面应用模板",
+    "welcome": "欢迎来到 {tauri} + {react} + {radix} 桌面应用模板！"
+  }
+}

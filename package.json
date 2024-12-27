@@ -1,0 +1,43 @@
+{
+  "name": "tauri-desktop-app-template",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build:tsc": "tsc -b && vite build",
+    "build": "vite build",
+    "lint": "eslint .",
+    "fmt": "biome format --write ./src",
+    "preview": "vite preview",
+    "locale:gen": "i18next --fail-on-warnings 'src/**/*.{ts,tsx}'"
+  },
+  "dependencies": {
+    "@radix-ui/themes": "^3.1.6",
+    "@tauri-apps/api": "^2.1.1",
+    "@tauri-apps/plugin-shell": "^2.2.0",
+    "classnames": "^2.5.1",
+    "framer-motion": "^11.13.5",
+    "i18next": "^24.1.0",
+    "i18next-icu": "^2.3.0",
+    "jotai": "^2.10.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^15.1.4",
+    "vite-plugin-i18next-loader": "^3.0.0",
+    "vite-plugin-top-level-await": "^1.4.4",
+    "vite-plugin-wasm": "^3.3.0",
+    "vite-svg-loader": "^5.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@tauri-apps/cli": "^2.1.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "i18next-parser": "^9.0.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3"
+  }
+}

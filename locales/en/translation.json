@@ -1,0 +1,6 @@
+{
+  "template": {
+    "title": "Tauri + React + RadixUI Desktop App Template",
+    "welcome": "Welcome to {tauri} + {react} + {radix} Desktop App template!"
+  }
+}
