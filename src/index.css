@@ -3,3 +3,10 @@ html {
 	margin: 0;
 	background: transparent;
 }
+
+:root {
+	--surface-color: #F84828;
+	--rim-color: #0BEDED;
+	--surface-bg-color: #F84828aa;
+	--rim-bg-color: #68e6ffaa;
+}

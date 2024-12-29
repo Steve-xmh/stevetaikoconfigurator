@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    tauri_desktop_app_template_lib::run()
+    stevetaikoconfigurator_lib::run()
 }
