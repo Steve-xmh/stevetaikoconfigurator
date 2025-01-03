@@ -61,17 +61,18 @@ fn reopen_device(
         .open_path(device_path.as_c_str())
         .map_err(InvokeError::from_error)?;
     *hid_device = Some(device);
+    println!("device reopened: {}", device_path.to_string_lossy());
     Ok(())
 }
 
 #[tauri::command]
-fn get_all_hids(hid: tauri::State<HidApiState>) -> Result<serde_json::Value, tauri::Error> {
-    let mut hid = hid
-        .write()
-        .map_err(|_| anyhow::anyhow!("error while mutating HID manager"))?;
-    hid.reset_devices().unwrap();
-    hid.add_devices(0x0F0D, 0x00C1).unwrap();
-    hid.add_devices(0x303A, 0x456D).unwrap();
+fn get_all_hids(hid: tauri::State<HidApiState>) -> Result<serde_json::Value, InvokeError> {
+    let mut hid = hid.write().map_err(InvokeError::from_error)?;
+    hid.reset_devices().map_err(InvokeError::from_error)?;
+    hid.add_devices(0x0F0D, 0x00C1)
+        .map_err(InvokeError::from_error)?;
+    hid.add_devices(0x303A, 0x456D)
+        .map_err(InvokeError::from_error)?;
 
     Ok(serde_json::json!(hid
         .device_list()
@@ -82,10 +83,30 @@ fn get_all_hids(hid: tauri::State<HidApiState>) -> Result<serde_json::Value, tau
                 "serialNumber": device.serial_number(),
                 "vendorId": device.vendor_id(),
                 "productId": device.product_id(),
-                "path": device.path().to_str().ok(),
+                "path": device.path().to_string_lossy(),
             })
         })
         .collect::<Vec<_>>()))
+}
+
+#[tauri::command]
+fn get_connected_hid(
+    hid_device: tauri::State<HidDeviceState>,
+) -> Result<serde_json::Value, InvokeError> {
+    let hid_device = hid_device.lock().map_err(InvokeError::from_error)?;
+    if let Some(device) = hid_device.as_ref() {
+        let info = device.get_device_info().map_err(InvokeError::from_error)?;
+        Ok(serde_json::json!({
+            "manufacturer": info.manufacturer_string(),
+            "product": info.product_string(),
+            "serialNumber": info.serial_number(),
+            "vendorId": info.vendor_id(),
+            "productId": info.product_id(),
+            "path": info.path(),
+        }))
+    } else {
+        Ok(serde_json::Value::Null)
+    }
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -121,6 +142,7 @@ pub fn run() {
             recv_feature_report_from_hid,
             get_all_hids,
             reopen_device,
+            get_connected_hid,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

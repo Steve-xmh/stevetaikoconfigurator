@@ -102,7 +102,7 @@ export const TaikoVisualizer = (props: {
 				r="72"
 				fill={fillColor}
 				stroke={outlineColor}
-				stroke-width="4"
+				strokeWidth="4"
 			/>
 			<g opacity="0.2">
 				<circle
@@ -111,7 +111,7 @@ export const TaikoVisualizer = (props: {
 					r="50"
 					fill={fillColor}
 					stroke={outlineColor}
-					stroke-width="2"
+					strokeWidth="2"
 				/>
 				<rect x="89" y="40" width="2" height="100" fill={outlineColor} />
 			</g>
@@ -210,10 +210,10 @@ export const TaikoVisualizer = (props: {
 					gradientUnits="userSpaceOnUse"
 					gradientTransform="translate(90 90) rotate(90) scale(90)"
 				>
-					<stop offset="0.55555" stop-color="#0BEDED" stop-opacity="0" />
-					<stop offset="0.56" stop-color="#0BEDED" />
-					<stop offset="0.82" stop-color="#0BEDED" />
-					<stop offset="1" stop-color="#068787" stop-opacity="0" />
+					<stop offset="0.55555" stopColor="#0BEDED" stopOpacity="0" />
+					<stop offset="0.56" stopColor="#0BEDED" />
+					<stop offset="0.82" stopColor="#0BEDED" />
+					<stop offset="1" stopColor="#068787" stopOpacity="0" />
 				</radialGradient>
 				<radialGradient
 					id="paint1_radial_575_52"
@@ -223,10 +223,10 @@ export const TaikoVisualizer = (props: {
 					gradientUnits="userSpaceOnUse"
 					gradientTransform="translate(90 90) rotate(90) scale(90)"
 				>
-					<stop offset="0.55555" stop-color="#0BEDED" stop-opacity="0" />
-					<stop offset="0.56" stop-color="#0BEDED" />
-					<stop offset="0.82" stop-color="#0BEDED" />
-					<stop offset="1" stop-color="#068787" stop-opacity="0" />
+					<stop offset="0.55555" stopColor="#0BEDED" stopOpacity="0" />
+					<stop offset="0.56" stopColor="#0BEDED" />
+					<stop offset="0.82" stopColor="#0BEDED" />
+					<stop offset="1" stopColor="#068787" stopOpacity="0" />
 				</radialGradient>
 				<radialGradient
 					id="paint2_radial_575_52"
@@ -236,8 +236,8 @@ export const TaikoVisualizer = (props: {
 					gradientUnits="userSpaceOnUse"
 					gradientTransform="translate(90 90) rotate(90) scale(60)"
 				>
-					<stop offset="0.82" stop-color="#F84828" />
-					<stop offset="1" stop-color="#F84828" stop-opacity="0" />
+					<stop offset="0.82" stopColor="#F84828" />
+					<stop offset="1" stopColor="#F84828" stopOpacity="0" />
 				</radialGradient>
 				<radialGradient
 					id="paint3_radial_575_52"
@@ -247,8 +247,8 @@ export const TaikoVisualizer = (props: {
 					gradientUnits="userSpaceOnUse"
 					gradientTransform="translate(60 60) rotate(90) scale(60)"
 				>
-					<stop offset="0.82" stop-color="#F84828" />
-					<stop offset="1" stop-color="#F84828" stop-opacity="0" />
+					<stop offset="0.82" stopColor="#F84828" />
+					<stop offset="1" stopColor="#F84828" stopOpacity="0" />
 				</radialGradient>
 			</defs>
 		</svg>

@@ -10,3 +10,15 @@ html {
 	--surface-bg-color: #F84828aa;
 	--rim-bg-color: #68e6ffaa;
 }
+
+.sensor-visualizer {
+	width: calc(var(--progress-height) * 2) !important;
+	height: unset !important;
+	min-height: 5em;
+
+	>* {
+		transition: none !important;
+		transform: scaleY(calc(var(--progress-value) / var(--progress-max))) !important;
+		transform-origin: bottom center !important;
+	}
+}

@@ -1,9 +1,7 @@
-import type { debug } from "console";
+import resources from "virtual:i18next-loader";
 import i18next from "i18next";
 import ICU from "i18next-icu";
-import { env } from "process";
 import { initReactI18next } from "react-i18next";
-import resources from "virtual:i18next-loader";
 
 i18next
 	.use(initReactI18next)

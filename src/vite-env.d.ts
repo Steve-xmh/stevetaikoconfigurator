@@ -1,6 +1,5 @@
 /// <reference types="vite/client" />
-
-import type { env } from "process";
+/// <reference types="@types/w3c-web-hid" />
 
 declare module "virtual:i18next-loader" {
 	const value: typeof import("../locales/zh-CN/translation.json");
