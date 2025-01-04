@@ -86,3 +86,5 @@ export const leftKaKeyAtom = atom(KeyboardUsage.KeyboardDd);
 export const leftDonKeyAtom = atom(KeyboardUsage.KeyboardFf);
 export const rightDonKeyAtom = atom(KeyboardUsage.KeyboardJj);
 export const rightKaKeyAtom = atom(KeyboardUsage.KeyboardKk);
+
+export const pageAtom = atom<"config" | "test" | "about">("config");

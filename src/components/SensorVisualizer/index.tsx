@@ -35,13 +35,17 @@ export const SingleSensorVisualizer = (props: {
 
 		const onFrame = async () => {
 			if (canceled) return;
-			const data = await recvFeatureReportFromHid(0x10);
-			if (canceled) return;
-			if (data) {
-				const view = new DataView(data.buffer);
+			try {
+				const data = await recvFeatureReportFromHid(0x10);
+				if (canceled) return;
+				if (data) {
+					const view = new DataView(data.buffer);
 
-				const value = view.getUint32(DATA_OFFSET[props.side], true);
-				setSensorValue(Math.max(0, Math.min(value, MAX_SENSOR_VALUE)));
+					const value = view.getUint32(DATA_OFFSET[props.side], true);
+					setSensorValue(Math.max(0, Math.min(value, MAX_SENSOR_VALUE)));
+				}
+			} catch {
+				setSensorValue(0);
 			}
 			if (canceled) return;
 			requestAnimationFrame(onFrame);
@@ -87,13 +91,17 @@ export const SingleLabeledSensorVisualizer = (props: {
 
 		const onFrame = async () => {
 			if (canceled) return;
-			const data = await recvFeatureReportFromHid(0x10);
-			if (canceled) return;
-			if (data) {
-				const view = new DataView(data.buffer);
+			try {
+				const data = await recvFeatureReportFromHid(0x10);
+				if (canceled) return;
+				if (data) {
+					const view = new DataView(data.buffer);
 
-				const value = view.getUint32(DATA_OFFSET[props.side], true);
-				setSensorValue(Math.max(0, Math.min(value, MAX_SENSOR_VALUE)));
+					const value = view.getUint32(DATA_OFFSET[props.side], true);
+					setSensorValue(Math.max(0, Math.min(value, MAX_SENSOR_VALUE)));
+				}
+			} catch {
+				setSensorValue(0);
 			}
 			if (canceled) return;
 			requestAnimationFrame(onFrame);

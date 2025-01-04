@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import { resolve } from "node:path";
 import react from "@vitejs/plugin-react";
 import i18next from "vite-plugin-i18next-loader";
-import svgLoader from "vite-svg-loader";
+import svgr from "vite-plugin-svgr";
 import topLevelAwait from "vite-plugin-top-level-await";
 import wasm from "vite-plugin-wasm";
 import jotaiDebugLabel from "jotai/babel/plugin-debug-label";
@@ -23,7 +23,7 @@ export default defineConfig({
 			paths: ["locales"],
 			namespaceResolution: "basename",
 		}),
-		svgLoader(),
+		svgr(),
 		wasm(),
 		topLevelAwait(),
 	],

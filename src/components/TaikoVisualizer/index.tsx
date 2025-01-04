@@ -15,6 +15,10 @@ export const TaikoVisualizer = (props: {
 	size?: number;
 	outlineColor?: string;
 	fillColor?: string;
+	onLeftRimInvoked?: () => void;
+	onRightRimInvoked?: () => void;
+	onLeftSurfaceInvoked?: () => void;
+	onRightSurfaceInvoked?: () => void;
 	ref?: Ref<TaikoVisualizerRef>;
 }) => {
 	const fillColor = props.fillColor ?? DEFAULT_FILL_COLOR;
@@ -50,6 +54,7 @@ export const TaikoVisualizer = (props: {
 						duration: 150,
 					},
 				);
+				props.onLeftRimInvoked?.();
 			},
 			invokeRightRimAnimation: () => {
 				const rightRim = rightRimRef.current;
@@ -61,6 +66,7 @@ export const TaikoVisualizer = (props: {
 						duration: 150,
 					},
 				);
+				props.onRightRimInvoked?.();
 			},
 			invokeLeftSurfaceAnimation: () => {
 				const leftSurface = leftSurfaceRef.current;
@@ -72,6 +78,7 @@ export const TaikoVisualizer = (props: {
 						duration: 150,
 					},
 				);
+				props.onLeftSurfaceInvoked?.();
 			},
 			invokeRightSurfaceAnimation: () => {
 				const rightSurface = rightSurfaceRef.current;
@@ -83,9 +90,15 @@ export const TaikoVisualizer = (props: {
 						duration: 150,
 					},
 				);
+				props.onRightSurfaceInvoked?.();
 			},
 		}),
-		[],
+		[
+			props.onLeftRimInvoked,
+			props.onRightRimInvoked,
+			props.onLeftSurfaceInvoked,
+			props.onRightSurfaceInvoked,
+		],
 	);
 	return (
 		// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>

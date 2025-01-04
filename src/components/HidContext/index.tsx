@@ -18,6 +18,14 @@ export const HidContext = () => {
 				if (!eqSet(curDevicesPaths, newDevicesPaths)) {
 					store.set(hidDevicesAtom, devices);
 				}
+
+				try {
+					const device = await getConnectedHidDevice();
+					store.set(connectedHidDevicesAtom, device);
+				} catch (err) {
+					console.warn(err);
+					store.set(connectedHidDevicesAtom, null);
+				}
 			}, 1000);
 
 			getConnectedHidDevice().then((device) =>

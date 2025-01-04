@@ -3,7 +3,7 @@ use std::{
     sync::{Mutex, RwLock},
 };
 
-use hidapi::{HidApi, HidDevice};
+use hidapi::{HidApi, HidDevice, HidError};
 use tauri::{ipc::InvokeError, Manager, State};
 use tauri_plugin_decorum::WebviewWindowExt;
 
@@ -69,8 +69,7 @@ fn reopen_device(
 fn get_all_hids(hid: tauri::State<HidApiState>) -> Result<serde_json::Value, InvokeError> {
     let mut hid = hid.write().map_err(InvokeError::from_error)?;
     hid.reset_devices().map_err(InvokeError::from_error)?;
-    hid.add_devices(0x0F0D, 0x00C1)
-        .map_err(InvokeError::from_error)?;
+
     hid.add_devices(0x303A, 0x456D)
         .map_err(InvokeError::from_error)?;
 
@@ -95,15 +94,17 @@ fn get_connected_hid(
 ) -> Result<serde_json::Value, InvokeError> {
     let hid_device = hid_device.lock().map_err(InvokeError::from_error)?;
     if let Some(device) = hid_device.as_ref() {
-        let info = device.get_device_info().map_err(InvokeError::from_error)?;
-        Ok(serde_json::json!({
-            "manufacturer": info.manufacturer_string(),
-            "product": info.product_string(),
-            "serialNumber": info.serial_number(),
-            "vendorId": info.vendor_id(),
-            "productId": info.product_id(),
-            "path": info.path(),
-        }))
+        match device.get_device_info() {
+            Ok(info) => Ok(serde_json::json!({
+                "manufacturer": info.manufacturer_string(),
+                "product": info.product_string(),
+                "serialNumber": info.serial_number(),
+                "vendorId": info.vendor_id(),
+                "productId": info.product_id(),
+                "path": info.path(),
+            })),
+            Err(_) => Ok(serde_json::Value::Null),
+        }
     } else {
         Ok(serde_json::Value::Null)
     }
