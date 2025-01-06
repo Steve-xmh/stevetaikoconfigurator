@@ -1,13 +1,18 @@
 import {
+	customButton1KeyAtom,
+	customButton2KeyAtom,
+	customButton3KeyAtom,
+	customButton4KeyAtom,
 	KeyboardUsage,
 	keyInvokeDurationAtom,
 	leftDonKeyAtom,
 	leftKaKeyAtom,
 	rightDonKeyAtom,
 	rightKaKeyAtom,
+	shouldSaveConfigAtom,
 } from "$/states/main.ts";
 import { Flex, TextField, Box, Slider, Text, Select } from "@radix-ui/themes";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -16,6 +21,11 @@ const SIDE_KEY_ATOMS_MAP = {
 	leftDon: leftDonKeyAtom,
 	rightDon: rightDonKeyAtom,
 	rightKa: rightKaKeyAtom,
+
+	customButton1: customButton1KeyAtom,
+	customButton2: customButton2KeyAtom,
+	customButton3: customButton3KeyAtom,
+	customButton4: customButton4KeyAtom,
 } as const;
 
 const useKeyboardUsageText = (usage: KeyboardUsage) => {
@@ -157,6 +167,15 @@ const useKeyboardUsageText = (usage: KeyboardUsage) => {
 			case KeyboardUsage.KeyboardF12:
 				return t("common.keyboardUsage.keyboardF12", "功能键 F12");
 
+			case KeyboardUsage.KeyboardRightArrow:
+				return t("common.keyboardUsage.keyboardRightArrow", "右箭头键");
+			case KeyboardUsage.KeyboardLeftArrow:
+				return t("common.keyboardUsage.keyboardLeftArrow", "左箭头键");
+			case KeyboardUsage.KeyboardDownArrow:
+				return t("common.keyboardUsage.keyboardDownArrow", "下箭头键");
+			case KeyboardUsage.KeyboardUpArrow:
+				return t("common.keyboardUsage.keyboardUpArrow", "上箭头键");
+
 			default:
 				return t("common.keyboardUsage.custom", "按键代号 {key}", {
 					key: `0x${(usage as KeyboardUsage).toString(16).padStart(2, "0").toUpperCase()}`,
@@ -183,6 +202,7 @@ export const SideKeyBindingSettings = (props: {
 }) => {
 	const sideKeyBindingAtom = SIDE_KEY_ATOMS_MAP[props.side];
 	const [keyBinding, setKeyBinding] = useAtom(sideKeyBindingAtom);
+	const setShouldSaveConfig = useSetAtom(shouldSaveConfigAtom);
 
 	const { t } = useTranslation();
 	const labelText = useMemo(() => {
@@ -191,22 +211,31 @@ export const SideKeyBindingSettings = (props: {
 		if (props.side === "rightDon")
 			return t("common.drumSide.rightDon", "右鼓面");
 		if (props.side === "rightKa") return t("common.drumSide.rightKa", "右鼓边");
+		if (props.side === "customButton1")
+			return t("common.drumSide.customButton1", "自定义按钮 1");
+		if (props.side === "customButton2")
+			return t("common.drumSide.customButton2", "自定义按钮 2");
+		if (props.side === "customButton3")
+			return t("common.drumSide.customButton3", "自定义按钮 3");
+		if (props.side === "customButton4")
+			return t("common.drumSide.customButton4", "自定义按钮 4");
 		return props.side;
 	}, [t, props.side]);
 
 	return (
 		<Flex direction="row" width="100%" justify="between" align="center" gap="4">
 			<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
-				<Text size="2">{labelText}模拟按键</Text>
+				<Text size="2">{labelText} 模拟按键</Text>
 				<Text size="1" color="gray">
-					当此侧被敲击判定时，电控将会模拟按下的按键
+					当 此侧/按钮 被 敲击判定/按下 时，电控将会模拟按下的按键
 				</Text>
 			</Flex>
 			<Select.Root
 				value={`${keyBinding}`}
-				onValueChange={(v) =>
-					setKeyBinding(Number.parseInt(v) as KeyboardUsage)
-				}
+				onValueChange={(v) => {
+					setKeyBinding(Number.parseInt(v) as KeyboardUsage);
+					setShouldSaveConfig(true);
+				}}
 			>
 				<Select.Trigger
 					style={{
@@ -230,6 +259,7 @@ const KeyInvokeDurationSetting = () => {
 	const [keyInvokeDuration, setKeyInvokeDuration] = useAtom(
 		keyInvokeDurationAtom,
 	);
+	const setShouldSaveConfig = useSetAtom(shouldSaveConfigAtom);
 
 	return (
 		<>
@@ -258,7 +288,10 @@ const KeyInvokeDurationSetting = () => {
 					min={1}
 					max={255}
 					value={keyInvokeDuration}
-					onChange={(v) => setKeyInvokeDuration(v.currentTarget.valueAsNumber)}
+					onChange={(v) => {
+						setKeyInvokeDuration(v.currentTarget.valueAsNumber);
+						setShouldSaveConfig(true);
+					}}
 				/>
 			</Flex>
 			<Box width="100%">
@@ -266,7 +299,10 @@ const KeyInvokeDurationSetting = () => {
 					value={[keyInvokeDuration]}
 					min={1}
 					max={255}
-					onValueChange={(v) => setKeyInvokeDuration(v[0])}
+					onValueChange={(v) => {
+						setKeyInvokeDuration(v[0]);
+						setShouldSaveConfig(true);
+					}}
 				/>
 			</Box>
 		</>
@@ -282,6 +318,11 @@ export const KeyBindingSettings = () => {
 			<SideKeyBindingSettings side="leftDon" />
 			<SideKeyBindingSettings side="rightDon" />
 			<SideKeyBindingSettings side="rightKa" />
+
+			<SideKeyBindingSettings side="customButton1" />
+			<SideKeyBindingSettings side="customButton2" />
+			<SideKeyBindingSettings side="customButton3" />
+			<SideKeyBindingSettings side="customButton4" />
 		</Flex>
 	);
 };

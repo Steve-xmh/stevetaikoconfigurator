@@ -5,7 +5,6 @@ use std::{
 
 use hidapi::{HidApi, HidDevice, HidError};
 use tauri::{ipc::InvokeError, Manager, State};
-use tauri_plugin_decorum::WebviewWindowExt;
 
 type HidApiState = RwLock<HidApi>;
 type HidDeviceState = Mutex<Option<HidDevice>>;
@@ -13,13 +12,29 @@ type HidDeviceState = Mutex<Option<HidDevice>>;
 #[tauri::command]
 fn send_feature_report_to_hid(
     hid_device: State<HidDeviceState>,
-    value: &[u8],
+    hid: State<HidApiState>,
+    value: Vec<u8>,
 ) -> Result<(), InvokeError> {
     let mut hid_device = hid_device.lock().map_err(InvokeError::from_error)?;
     if let Some(device) = hid_device.as_mut() {
-        device
-            .send_feature_report(value)
-            .map_err(InvokeError::from_error)?;
+        let info = device.get_device_info().map_err(InvokeError::from_error)?;
+        let path = info.path();
+        if !hid
+            .read()
+            .map_err(InvokeError::from_error)?
+            .device_list()
+            .any(|d| d.path() == path)
+        {
+            return Err(InvokeError::from_anyhow(anyhow::anyhow!(
+                "device not found or not opened"
+            )));
+        }
+
+        println!("send_feature_report_to_hid: {:?}", value);
+
+        dbg!(device
+            .send_feature_report(&value)
+            .map_err(InvokeError::from_error)?);
     } else {
         return Err(InvokeError::from_anyhow(anyhow::anyhow!(
             "device not found or not opened"
@@ -31,10 +46,24 @@ fn send_feature_report_to_hid(
 #[tauri::command]
 fn recv_feature_report_from_hid(
     hid_device: State<HidDeviceState>,
+    hid: State<HidApiState>,
     report_id: u8,
 ) -> Result<Vec<u8>, InvokeError> {
     let mut hid_device = hid_device.lock().map_err(InvokeError::from_error)?;
     if let Some(device) = hid_device.as_mut() {
+        let info = device.get_device_info().map_err(InvokeError::from_error)?;
+        let path = info.path();
+        if !hid
+            .read()
+            .map_err(InvokeError::from_error)?
+            .device_list()
+            .any(|d| d.path() == path)
+        {
+            return Err(InvokeError::from_anyhow(anyhow::anyhow!(
+                "device not found or not opened"
+            )));
+        }
+
         let mut buf = [0u8; 64]; // HID 最大报告长度
         buf[0] = report_id;
         let size = device
@@ -90,19 +119,32 @@ fn get_all_hids(hid: tauri::State<HidApiState>) -> Result<serde_json::Value, Inv
 
 #[tauri::command]
 fn get_connected_hid(
+    hid: State<HidApiState>,
     hid_device: tauri::State<HidDeviceState>,
 ) -> Result<serde_json::Value, InvokeError> {
     let hid_device = hid_device.lock().map_err(InvokeError::from_error)?;
     if let Some(device) = hid_device.as_ref() {
         match device.get_device_info() {
-            Ok(info) => Ok(serde_json::json!({
-                "manufacturer": info.manufacturer_string(),
-                "product": info.product_string(),
-                "serialNumber": info.serial_number(),
-                "vendorId": info.vendor_id(),
-                "productId": info.product_id(),
-                "path": info.path(),
-            })),
+            Ok(info) => {
+                let path = info.path();
+                if !hid
+                    .read()
+                    .map_err(InvokeError::from_error)?
+                    .device_list()
+                    .any(|d| d.path() == path)
+                {
+                    return Ok(serde_json::Value::Null);
+                }
+
+                Ok(serde_json::json!({
+                    "manufacturer": info.manufacturer_string(),
+                    "product": info.product_string(),
+                    "serialNumber": info.serial_number(),
+                    "vendorId": info.vendor_id(),
+                    "productId": info.product_id(),
+                    "path": info.path().to_string_lossy(),
+                }))
+            }
             Err(_) => Ok(serde_json::Value::Null),
         }
     } else {
@@ -123,6 +165,7 @@ pub fn run() {
         .setup(|_app| {
             #[cfg(target_os = "macos")]
             {
+                use tauri_plugin_decorum::WebviewWindowExt;
                 let main_window = _app.get_webview_window("main").unwrap();
                 main_window.set_traffic_lights_inset(16.0, 20.0).unwrap();
                 main_window.make_transparent().unwrap();

@@ -41,10 +41,6 @@ const KeyboardTestEntry = () => {
 			clearTimeout(resetRef.current);
 		}
 		resetRef.current = setTimeout(() => {
-			setLeftKa(0);
-			setLeftDon(0);
-			setRightDon(0);
-			setRightKa(0);
 			setSurfaceRenda(0);
 			setRimRenda(0);
 		}, 2000);
@@ -180,10 +176,6 @@ const JoystickTestEntry = ({
 			clearTimeout(resetRef.current);
 		}
 		resetRef.current = setTimeout(() => {
-			setLeftKa(0);
-			setLeftDon(0);
-			setRightDon(0);
-			setRightKa(0);
 			setSurfaceRenda(0);
 			setRimRenda(0);
 		}, 2000);
@@ -321,7 +313,7 @@ const JoystickTestEntry = ({
 
 export const TestPage = () => {
 	return (
-		<Flex direction="column" align="center" minWidth="100%">
+		<Flex direction="column" justify="center" align="center">
 			<KeyboardTestEntry />
 			<Separator size="4" />
 			<JoystickTestEntry playerIndex={0} />

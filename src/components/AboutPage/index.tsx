@@ -5,7 +5,7 @@ export const AboutPage = () => {
 	return (
 		<>
 			<Flex align="center" justify="center" direction="column" gap="4">
-				<LogoIcon width="10em" height="auto" />
+				<LogoIcon height="10em" />
 				<Heading>Steve Taiko Configurator</Heading>
 				<Text color="gray" size="2">
 					by SteveXMH

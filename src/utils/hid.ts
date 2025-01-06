@@ -44,19 +44,25 @@ export async function reopenHidDevice(devicePath: string) {
 		});
 }
 
-export async function sendFeatureReportToHid(value: ArrayBufferLike) {
+export async function sendFeatureReportToHid(
+	value: ArrayBuffer | ArrayBufferView,
+) {
 	if (import.meta.env.TAURI_ENV_PLATFORM)
 		await invoke<void>("send_feature_report_to_hid", {
-			value,
+			value: Array.from(
+				new Uint8Array(value instanceof ArrayBuffer ? value : value.buffer),
+			),
 		});
 }
 
 export async function recvFeatureReportFromHid(reportId: number) {
 	if (import.meta.env.TAURI_ENV_PLATFORM)
-		return new Uint8Array(
-			await invoke<number[]>("recv_feature_report_from_hid", {
-				reportId,
-			}),
+		return new DataView(
+			new Uint8Array(
+				await invoke<number[]>("recv_feature_report_from_hid", {
+					reportId,
+				}),
+			).buffer,
 		);
 }
 

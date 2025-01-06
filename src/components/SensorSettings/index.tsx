@@ -3,10 +3,11 @@ import {
 	leftKaSensorMultiplierAtom,
 	rightDonSensorMultiplierAtom,
 	rightKaSensorMultiplierAtom,
+	shouldSaveConfigAtom,
 	triggerThresholdAtom,
 } from "$/states/main.ts";
 import { Flex, TextField, Box, Slider, Text } from "@radix-ui/themes";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -22,6 +23,7 @@ const SensorMultiplierSetting = (props: {
 }) => {
 	const sensorMultiplierAtom = SENSOR_MULTIPLIER_ATOM_MAPS[props.side];
 	const [sensorMultiplier, setSensorMultiplier] = useAtom(sensorMultiplierAtom);
+	const setShouldSaveConfig = useSetAtom(shouldSaveConfigAtom);
 
 	const { t } = useTranslation();
 	const labelText = useMemo(() => {
@@ -57,7 +59,10 @@ const SensorMultiplierSetting = (props: {
 					max={10}
 					step={0.01}
 					value={sensorMultiplier}
-					onChange={(e) => setSensorMultiplier(e.currentTarget.valueAsNumber)}
+					onChange={(e) => {
+						setSensorMultiplier(e.currentTarget.valueAsNumber);
+						setShouldSaveConfig(true);
+					}}
 				/>
 			</Flex>
 			<Box width="100%">
@@ -66,7 +71,10 @@ const SensorMultiplierSetting = (props: {
 					min={0}
 					max={10}
 					step={0.01}
-					onValueChange={(e) => setSensorMultiplier(e[0])}
+					onValueChange={(e) => {
+						setSensorMultiplier(e[0]);
+						setShouldSaveConfig(true);
+					}}
 				/>
 			</Box>
 		</>
@@ -75,6 +83,7 @@ const SensorMultiplierSetting = (props: {
 
 const TriggerThresholdSetting = () => {
 	const [triggerThreshold, setTriggerThreshold] = useAtom(triggerThresholdAtom);
+	const setShouldSaveConfig = useSetAtom(shouldSaveConfigAtom);
 
 	return (
 		<>
@@ -99,7 +108,10 @@ const TriggerThresholdSetting = () => {
 					min={0}
 					max={5000}
 					value={triggerThreshold}
-					onChange={(e) => setTriggerThreshold(e.currentTarget.valueAsNumber)}
+					onChange={(e) => {
+						setTriggerThreshold(e.currentTarget.valueAsNumber);
+						setShouldSaveConfig(true);
+					}}
 				/>
 			</Flex>
 			<Box width="100%">
@@ -107,7 +119,10 @@ const TriggerThresholdSetting = () => {
 					value={[triggerThreshold]}
 					min={0}
 					max={5000}
-					onValueChange={(e) => setTriggerThreshold(e[0])}
+					onValueChange={(e) => {
+						setTriggerThreshold(e[0]);
+						setShouldSaveConfig(true);
+					}}
 				/>
 			</Box>
 		</>

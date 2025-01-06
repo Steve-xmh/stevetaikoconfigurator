@@ -15,8 +15,11 @@ import { useAtom } from "jotai";
 import { pageAtom } from "./states/main.ts";
 import { AboutPage } from "./components/AboutPage/index.tsx";
 import { TestPage } from "./components/TestPage/index.tsx";
+import { SaveConfigButton } from "./components/SaveConfigButton/index.tsx";
+import * as HidApi from "./utils/hid.ts";
 
 window.invoke = invoke;
+window.hidApi = HidApi;
 
 function App() {
 	const theme = useAtomValue(isDarkThemeAtom);
@@ -73,14 +76,11 @@ function App() {
 					</SegmentedControl.Root>
 				</Flex>
 				<Flex flexGrow="1" flexBasis="0" direction="row-reverse">
-					<Button variant="surface">保存设置</Button>
+					<SaveConfigButton />
 				</Flex>
 			</Flex>
 			<div
 				style={{
-					display: "flex",
-					justifyContent: "flex-start",
-					alignItems: "center",
 					flexGrow: 1,
 					overflow: "auto",
 					padding: "var(--space-3)",

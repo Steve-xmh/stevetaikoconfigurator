@@ -6,7 +6,7 @@ import { atom, useAtom, useAtomValue } from "jotai";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const MAX_SENSOR_VALUE = 5000;
+const MAX_SENSOR_VALUE = 2000;
 
 const DATA_OFFSET = {
 	leftKa: 1,
@@ -36,11 +36,9 @@ export const SingleSensorVisualizer = (props: {
 		const onFrame = async () => {
 			if (canceled) return;
 			try {
-				const data = await recvFeatureReportFromHid(0x10);
+				const view = await recvFeatureReportFromHid(0x10);
 				if (canceled) return;
-				if (data) {
-					const view = new DataView(data.buffer);
-
+				if (view) {
 					const value = view.getUint32(DATA_OFFSET[props.side], true);
 					setSensorValue(Math.max(0, Math.min(value, MAX_SENSOR_VALUE)));
 				}

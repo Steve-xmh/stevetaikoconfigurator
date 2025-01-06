@@ -105,6 +105,10 @@ export const TaikoVisualizer = (props: {
 		<svg
 			width={props.size ?? 180}
 			height={props.size ?? 180}
+			style={{
+				width: props.size ?? 180,
+				height: props.size ?? 180,
+			}}
 			viewBox="0 0 180 180"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

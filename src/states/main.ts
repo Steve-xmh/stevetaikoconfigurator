@@ -68,6 +68,11 @@ export enum KeyboardUsage {
 	KeyboardF10 = 0x43,
 	KeyboardF11 = 0x44,
 	KeyboardF12 = 0x45,
+
+	KeyboardRightArrow = 0x4f,
+	KeyboardLeftArrow = 0x50,
+	KeyboardDownArrow = 0x51,
+	KeyboardUpArrow = 0x52,
 }
 
 export const hidDevicesAtom = atom<HidDevice[]>([]);
@@ -86,5 +91,12 @@ export const leftKaKeyAtom = atom(KeyboardUsage.KeyboardDd);
 export const leftDonKeyAtom = atom(KeyboardUsage.KeyboardFf);
 export const rightDonKeyAtom = atom(KeyboardUsage.KeyboardJj);
 export const rightKaKeyAtom = atom(KeyboardUsage.KeyboardKk);
+
+export const customButton1KeyAtom = atom(KeyboardUsage.KeyboardUpArrow);
+export const customButton2KeyAtom = atom(KeyboardUsage.KeyboardBackspace);
+export const customButton3KeyAtom = atom(KeyboardUsage.KeyboardEnter);
+export const customButton4KeyAtom = atom(KeyboardUsage.KeyboardDownArrow);
+
+export const shouldSaveConfigAtom = atom(false);
 
 export const pageAtom = atom<"config" | "test" | "about">("config");
