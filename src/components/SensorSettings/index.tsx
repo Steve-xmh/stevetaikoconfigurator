@@ -1,4 +1,6 @@
 import {
+	doubleSideHitDetectionAtom,
+	ledHitIndicatorAtom,
 	leftDonSensorMultiplierAtom,
 	leftKaSensorMultiplierAtom,
 	rightDonSensorMultiplierAtom,
@@ -6,7 +8,7 @@ import {
 	shouldSaveConfigAtom,
 	triggerThresholdAtom,
 } from "$/states/main.ts";
-import { Flex, TextField, Box, Slider, Text } from "@radix-ui/themes";
+import { Flex, TextField, Box, Slider, Text, Switch } from "@radix-ui/themes";
 import { useAtom, useSetAtom } from "jotai";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -129,10 +131,80 @@ const TriggerThresholdSetting = () => {
 	);
 };
 
+const LedHitIndicatorSetting = () => {
+	const [ledHitIndicator, setLedHitIndicator] = useAtom(ledHitIndicatorAtom);
+	const setShouldSaveConfig = useSetAtom(shouldSaveConfigAtom);
+
+	return (
+		<>
+			<Flex
+				direction="row"
+				width="100%"
+				justify="between"
+				align="center"
+				gap="4"
+			>
+				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
+					<Text size="2">启用 LED 敲击指示灯</Text>
+					<Text size="1" color="gray">
+						在判定的时候可以通过亮起 LED
+						灯指示当前敲击的结果，红色代表鼓面，蓝色代表鼓边。
+						<br />
+						可以借助此功能来确认与电脑之间的延迟情况（此指示灯可以被认为是零延迟的）
+					</Text>
+				</Flex>
+				<Switch
+					checked={ledHitIndicator}
+					onCheckedChange={(v) => {
+						setLedHitIndicator(v);
+						setShouldSaveConfig(true);
+					}}
+				/>
+			</Flex>
+		</>
+	);
+};
+
+const DoubleSideHitDetectionSetting = () => {
+	const [doubleSideHitDetection, setDoubleSideHitDetection] = useAtom(
+		doubleSideHitDetectionAtom,
+	);
+	const setShouldSaveConfig = useSetAtom(shouldSaveConfigAtom);
+
+	return (
+		<>
+			<Flex
+				direction="row"
+				width="100%"
+				justify="between"
+				align="center"
+				gap="4"
+			>
+				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
+					<Text size="2">启用双押判定（实验性）</Text>
+					<Text size="1" color="gray">
+						在鼓面两侧或鼓边两侧同时敲击时，是否判定为双押，并同时按下两个按键。
+						<br />
+					</Text>
+				</Flex>
+				<Switch
+					checked={doubleSideHitDetection}
+					onCheckedChange={(v) => {
+						setDoubleSideHitDetection(v);
+						setShouldSaveConfig(true);
+					}}
+				/>
+			</Flex>
+		</>
+	);
+};
+
 export const SensorSettings = () => {
 	return (
 		<Flex direction="column" gap="4" my="6">
 			<TriggerThresholdSetting />
+			<LedHitIndicatorSetting />
+			<DoubleSideHitDetectionSetting />
 			<SensorMultiplierSetting side="leftKa" />
 			<SensorMultiplierSetting side="leftDon" />
 			<SensorMultiplierSetting side="rightDon" />

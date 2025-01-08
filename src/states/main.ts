@@ -79,6 +79,8 @@ export const hidDevicesAtom = atom<HidDevice[]>([]);
 export const connectedHidDevicesAtom = atom<HidDevice | null>(null);
 
 // 传感器设置
+export const ledHitIndicatorAtom = atom(true);
+export const doubleSideHitDetectionAtom = atom(false);
 export const triggerThresholdAtom = atom(1);
 export const leftKaSensorMultiplierAtom = atom(1);
 export const leftDonSensorMultiplierAtom = atom(1);

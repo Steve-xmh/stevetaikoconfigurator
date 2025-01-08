@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tauri-desktop-app-template",
+  "productName": "Steve Taiko Configurator",
   "version": "0.1.0",
   "identifier": "net.stevexmh.stevetaikoconfigurator",
   "build": {

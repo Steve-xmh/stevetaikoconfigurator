@@ -5,7 +5,7 @@ import { Flex, SegmentedControl, Theme, Button } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import WindowControls from "./components/WindowControls/index.tsx";
 import { t } from "i18next";
-import { useAtomValue } from "jotai";
+import { atom, useAtomValue } from "jotai";
 import { isDarkThemeAtom } from "./states/theme.ts";
 import { HidContext } from "./components/HidContext/index.tsx";
 import { TaikoControllerSelector } from "./components/TaikoControllerSelector/index.tsx";
@@ -17,12 +17,17 @@ import { AboutPage } from "./components/AboutPage/index.tsx";
 import { TestPage } from "./components/TestPage/index.tsx";
 import { SaveConfigButton } from "./components/SaveConfigButton/index.tsx";
 import * as HidApi from "./utils/hid.ts";
+import { version } from "@tauri-apps/plugin-os";
+import semverLt from "semver/functions/lt";
 
 window.invoke = invoke;
 window.hidApi = HidApi;
 
+const hasBackgroundAtom = atom(() => semverLt(version(), "10.0.22000"));
+
 function App() {
 	const theme = useAtomValue(isDarkThemeAtom);
+	const hasBackground = useAtomValue(hasBackgroundAtom);
 	const [page, setPage] = useAtom(pageAtom);
 
 	if (import.meta.env.TAURI_ENV_PLATFORM) {
@@ -30,6 +35,8 @@ function App() {
 		useEffect(() => {
 			try {
 				const win = getCurrentWindow();
+
+				console.log(version());
 
 				win.show();
 			} catch {}
@@ -39,7 +46,7 @@ function App() {
 	return (
 		<Theme
 			appearance={theme ? "dark" : "light"}
-			hasBackground={false}
+			hasBackground={hasBackground}
 			style={{
 				display: "flex",
 				flexDirection: "column",

@@ -5,9 +5,9 @@ html {
 }
 
 :root {
-	--surface-color: #F84828;
-	--rim-color: #0BEDED;
-	--surface-bg-color: #F84828aa;
+	--surface-color: #f84828;
+	--rim-color: #0beded;
+	--surface-bg-color: #f84828aa;
 	--rim-bg-color: #68e6ffaa;
 }
 
@@ -16,7 +16,7 @@ html {
 	height: unset !important;
 	min-height: 5em;
 
-	>* {
+	> * {
 		transition: none !important;
 		transform: scaleY(calc(var(--progress-value) / var(--progress-max))) !important;
 		transform-origin: bottom center !important;

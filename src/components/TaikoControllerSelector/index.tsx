@@ -4,8 +4,10 @@ import {
 	customButton2KeyAtom,
 	customButton3KeyAtom,
 	customButton4KeyAtom,
+	doubleSideHitDetectionAtom,
 	hidDevicesAtom,
 	keyInvokeDurationAtom,
+	ledHitIndicatorAtom,
 	leftDonKeyAtom,
 	leftDonSensorMultiplierAtom,
 	leftKaKeyAtom,
@@ -108,24 +110,27 @@ export const TaikoControllerSelector = () => {
 		});
 
 		// const emulationMode = commonConfigReport.getUint8(1);
-		store.set(keyInvokeDurationAtom, commonConfigReport.getUint16(2, true));
-		store.set(triggerThresholdAtom, commonConfigReport.getUint16(4, true));
+		const boolFlags = commonConfigReport.getUint8(2);
+		store.set(ledHitIndicatorAtom, !!(boolFlags & 0b01));
+		store.set(doubleSideHitDetectionAtom, !!(boolFlags & 0b10));
+		store.set(keyInvokeDurationAtom, commonConfigReport.getUint16(3, true));
+		store.set(triggerThresholdAtom, commonConfigReport.getUint16(5, true));
 
 		store.set(
 			leftKaSensorMultiplierAtom,
-			commonConfigReport.getFloat32(6, true),
+			commonConfigReport.getFloat32(7, true),
 		);
 		store.set(
 			leftDonSensorMultiplierAtom,
-			commonConfigReport.getFloat32(10, true),
+			commonConfigReport.getFloat32(11, true),
 		);
 		store.set(
 			rightDonSensorMultiplierAtom,
-			commonConfigReport.getFloat32(14, true),
+			commonConfigReport.getFloat32(15, true),
 		);
 		store.set(
 			rightKaSensorMultiplierAtom,
-			commonConfigReport.getFloat32(18, true),
+			commonConfigReport.getFloat32(19, true),
 		);
 
 		store.set(leftKaKeyAtom, pcConfigReport.getUint8(1) as KeyboardUsage);

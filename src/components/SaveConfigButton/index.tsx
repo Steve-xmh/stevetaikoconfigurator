@@ -4,7 +4,9 @@ import {
 	customButton2KeyAtom,
 	customButton3KeyAtom,
 	customButton4KeyAtom,
+	doubleSideHitDetectionAtom,
 	keyInvokeDurationAtom,
+	ledHitIndicatorAtom,
 	leftDonKeyAtom,
 	leftDonSensorMultiplierAtom,
 	leftKaKeyAtom,
@@ -15,11 +17,10 @@ import {
 	rightKaSensorMultiplierAtom,
 	shouldSaveConfigAtom,
 	triggerThresholdAtom,
-	type KeyboardUsage,
 } from "$/states/main.ts";
 import { sendFeatureReportToHid } from "$/utils/hid.ts";
 import { Button } from "@radix-ui/themes";
-import { atom, useAtom, useAtomValue, useStore } from "jotai";
+import { atom, useAtomValue, useStore } from "jotai";
 import { useCallback } from "react";
 
 const savingConfigAtom = atom(false);
@@ -33,31 +34,36 @@ export const SaveConfigButton = () => {
 	const saveConfig = useCallback(async () => {
 		store.set(savingConfigAtom, true);
 		try {
-			const commonConfigReport = new DataView(new ArrayBuffer(22));
+			const commonConfigReport = new DataView(new ArrayBuffer(23));
 			commonConfigReport.setUint8(0, 0x11);
 			commonConfigReport.setUint8(1, 0x00);
-			commonConfigReport.setUint16(2, store.get(keyInvokeDurationAtom), true);
-			commonConfigReport.setUint16(4, store.get(triggerThresholdAtom), true);
+			let boolFlags = 0;
+			boolFlags |= store.get(ledHitIndicatorAtom) ? 0b01 : 0;
+			boolFlags |= store.get(doubleSideHitDetectionAtom) ? 0b10 : 0;
+			commonConfigReport.setUint8(2, boolFlags);
+			commonConfigReport.setUint16(3, store.get(keyInvokeDurationAtom), true);
+			commonConfigReport.setUint16(5, store.get(triggerThresholdAtom), true);
 			commonConfigReport.setFloat32(
-				6,
+				7,
 				store.get(leftKaSensorMultiplierAtom),
 				true,
 			);
 			commonConfigReport.setFloat32(
-				10,
+				11,
 				store.get(leftDonSensorMultiplierAtom),
 				true,
 			);
 			commonConfigReport.setFloat32(
-				14,
+				15,
 				store.get(rightDonSensorMultiplierAtom),
 				true,
 			);
 			commonConfigReport.setFloat32(
-				18,
+				19,
 				store.get(rightKaSensorMultiplierAtom),
 				true,
 			);
+
 			const pcConfigReport = new DataView(new ArrayBuffer(9));
 			pcConfigReport.setUint8(0, 0x12);
 			pcConfigReport.setUint8(1, store.get(leftKaKeyAtom));

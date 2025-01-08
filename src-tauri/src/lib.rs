@@ -3,8 +3,11 @@ use std::{
     sync::{Mutex, RwLock},
 };
 
-use hidapi::{HidApi, HidDevice, HidError};
-use tauri::{ipc::InvokeError, Manager, State};
+#[cfg(target_os = "windows")]
+mod webview2;
+
+use hidapi::{HidApi, HidDevice};
+use tauri::{ipc::InvokeError, State};
 
 type HidApiState = RwLock<HidApi>;
 type HidDeviceState = Mutex<Option<HidDevice>>;
@@ -154,6 +157,9 @@ fn get_connected_hid(
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    #[cfg(target_os = "windows")]
+    webview2::init();
+
     tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
