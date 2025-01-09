@@ -51,7 +51,7 @@ export const ConfigurePage = () => {
 				</Flex>
 				<TaikoVisualizerForKeyboard
 					size={256}
-					sampleMethod="frame"
+					sampleMethod="event"
 					fillColor="transparent"
 					outlineColor="var(--gray-10)"
 				/>

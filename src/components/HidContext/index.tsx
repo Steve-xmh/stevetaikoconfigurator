@@ -1,6 +1,10 @@
 import { connectedHidDevicesAtom, hidDevicesAtom } from "$/states/main.ts";
 import { eqSet } from "$/utils/eq-set.ts";
-import { getAllHidDevices, getConnectedHidDevice } from "$/utils/hid.ts";
+import {
+	getAllHidDevices,
+	getConnectedHidDevice,
+	reopenHidDevice,
+} from "$/utils/hid.ts";
 import { useStore } from "jotai";
 import { useEffect } from "react";
 
@@ -21,12 +25,18 @@ export const HidContext = () => {
 
 				try {
 					const device = await getConnectedHidDevice();
+					if (
+						device?.path &&
+						store.get(connectedHidDevicesAtom)?.path !== device.path
+					) {
+						await reopenHidDevice(device.path);
+					}
 					store.set(connectedHidDevicesAtom, device);
 				} catch (err) {
 					console.warn(err);
 					store.set(connectedHidDevicesAtom, null);
 				}
-			}, 1000);
+			}, 250);
 
 			getConnectedHidDevice().then((device) =>
 				store.set(connectedHidDevicesAtom, device),
