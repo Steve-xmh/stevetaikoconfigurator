@@ -273,11 +273,15 @@ const KeyInvokeDurationSetting = () => {
 				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
 					<Text size="2">按键模拟时长</Text>
 					<Text size="1" color="gray">
-						即按下按键后多久后松开，单位为毫秒，推荐根据自己实际游戏帧率调节
+						即按下按键后多久后松开，单位为毫秒，设置为 0 为按下后立即松开
 						<br />
-						如果模拟时长过长，会导致一定的延迟。如果模拟时长过短，会导致游戏无法及时识别到输入。
+						如果模拟时长过长，会导致一定的延迟。如果模拟时长过短，可能会导致游戏无法及时识别到输入。
 						<br />
-						如果不清楚如何调整的话，可以使用默认的 16ms 以适用于大多数游戏情况
+						如果不清楚如何调整的话抑或是你正在使用官方游戏软件游玩，可以使用默认的
+						16ms 以适用于大多数游戏情况
+						<br />
+						如果你使用的是模拟器游戏等<b>基于按键事件</b>
+						响应输入的游戏，可以设置为 0 以获得最低的延迟和最好的连打体验。
 					</Text>
 				</Flex>
 				<TextField.Root
@@ -285,7 +289,7 @@ const KeyInvokeDurationSetting = () => {
 						width: "5em",
 					}}
 					type="number"
-					min={1}
+					min={0}
 					max={255}
 					value={keyInvokeDuration}
 					onChange={(v) => {
@@ -297,7 +301,7 @@ const KeyInvokeDurationSetting = () => {
 			<Box width="100%">
 				<Slider
 					value={[keyInvokeDuration]}
-					min={1}
+					min={0}
 					max={255}
 					onValueChange={(v) => {
 						setKeyInvokeDuration(v[0]);

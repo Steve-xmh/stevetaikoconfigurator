@@ -99,7 +99,11 @@ const TriggerThresholdSetting = () => {
 				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
 					<Text size="2">判定阈值</Text>
 					<Text size="1" color="gray">
-						任意传感器数值超过这个数字则进入判定阶段，单位可以当作电压值（mV）理解
+						任意传感器数值超过这个数字则进入判定阶段，单位可以当作电压值（mV）理解。
+						<br />
+						过低的值容易导致串音，过高的值会需要用更大的力气敲击，甚至可能导致吃音。
+						<br />
+						可以在调节设置后在测试页面中确认敲击效果。
 					</Text>
 				</Flex>
 				<TextField.Root
