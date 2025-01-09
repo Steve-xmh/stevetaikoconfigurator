@@ -171,6 +171,7 @@ pub fn run() {
         .setup(|_app| {
             #[cfg(target_os = "macos")]
             {
+                use tauri::Manager;
                 use tauri_plugin_decorum::WebviewWindowExt;
                 let main_window = _app.get_webview_window("main").unwrap();
                 main_window.set_traffic_lights_inset(16.0, 20.0).unwrap();
