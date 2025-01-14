@@ -1,3 +1,3 @@
 files:
   - source: /locales/zh-CN/*.json
-    translation: ' /locales/%locale%/%original_file_name%'
+    translation: /locales/%locale%/%file_name%.json
