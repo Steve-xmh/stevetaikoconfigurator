@@ -20,7 +20,8 @@
   "page": {
     "about": {
       "appDesc": "用于配置萧鼓太鼓控制器以及测试太鼓控制器的工具",
-      "freewareTip": "此工具为免费开源的自由软件"
+      "freewareTip": "此工具为免费开源的自由软件",
+      "downloadDesktopVersion": "下载 Tauri 桌面版本"
     },
     "config": {
       "disabledTips": {
@@ -196,8 +197,8 @@
     },
     "webHidCheck": {
       "title": "你的浏览器不支持 WebHID API",
-      "desc": "本网页需要支持 WebHID API 的浏览器才能正常工作。请使用最新版的 Chrome/Chromuim 或 Microsoft Edge 浏览器。",
-      "refer": "详情请参考：<1><0><0>WebHID API 兼容性清单</0></0></1>",
+      "desc": "本网页需要支持 WebHID API 的浏览器才能正常工作。请使用最新版的 Chrome/Chromuim 或 Microsoft Edge 浏览器，亦或是使用本网页程序的桌面版本。",
+      "refer": "详情请参考：",
       "referLink": "WebHID API 兼容性清单",
       "browseOnly": "仅浏览"
     }

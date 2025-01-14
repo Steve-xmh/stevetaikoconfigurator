@@ -52,6 +52,21 @@ export const AboutPage = () => {
 						</a>
 					</Button>
 				</Flex>
+				{!import.meta.env.TAURI_ENV_PLATFORM && (
+					<Flex gap="2" justify="center">
+						<Button asChild>
+							<a
+								href="https://github.com/Steve-xmh/stevetaikoconfigurator/releases"
+								target="_blank"
+								rel="noreferrer"
+							>
+								<Trans i18nKey="page.about.downloadDesktopVersion">
+									下载 Tauri 桌面版本
+								</Trans>
+							</a>
+						</Button>
+					</Flex>
+				)}
 			</Flex>
 		</>
 	);

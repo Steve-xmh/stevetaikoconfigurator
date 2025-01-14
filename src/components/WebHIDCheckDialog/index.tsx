@@ -19,24 +19,23 @@ export const WebHIDCheckDialog = () => {
 					<Text>
 						<Trans i18nKey="dialogs.webHidCheck.desc">
 							本网页需要支持 WebHID API 的浏览器才能正常工作。请使用最新版的
-							Chrome/Chromuim 或 Microsoft Edge 浏览器。
+							Chrome/Chromuim 或 Microsoft Edge
+							浏览器，亦或是使用本网页程序的桌面版本。
 						</Trans>
 						<br />
-						<Trans i18nKey="dialogs.webHidCheck.refer">
-							详情请参考：
-							<Button variant="ghost" asChild size="3">
-								<a
-									href="https://caniuse.com/webhid"
-									referrerPolicy="no-referrer"
-									target="_blank"
-									rel="noreferrer"
-								>
-									<Trans i18nKey="dialogs.webHidCheck.referLink">
-										WebHID API 兼容性清单
-									</Trans>
-								</a>
-							</Button>
-						</Trans>
+						<Trans i18nKey="dialogs.webHidCheck.refer">详情请参考：</Trans>
+						<Button variant="ghost" asChild size="3">
+							<a
+								href="https://caniuse.com/webhid"
+								referrerPolicy="no-referrer"
+								target="_blank"
+								rel="noreferrer"
+							>
+								<Trans i18nKey="dialogs.webHidCheck.referLink">
+									WebHID API 兼容性清单
+								</Trans>
+							</a>
+						</Button>
 					</Text>
 				</div>
 				<Flex direction="row-reverse">

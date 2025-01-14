@@ -24,6 +24,7 @@ import {
 	type HidDevice,
 	getAllHidDevices,
 	getConnectedHidDevice,
+	isHIDSupported,
 	recvFeatureReportFromHid,
 	reopenHidDevice,
 } from "$/utils/hid.ts";
@@ -100,11 +101,14 @@ const TaikoControllerSelectorItem = (props: {
 	);
 };
 
+const isHIDSupportedAtom = atom(() => isHIDSupported());
+
 export const TaikoControllerSelector = () => {
 	const store = useStore();
 	const [opened, setOpened] = useAtom(taikoControllerSelectorOpenedAtom);
 	const isOpening = useAtomValue(isOpeningAtom);
 	const hidDevices = useAtomValue(hidDevicesAtom);
+	const hidSupported = useAtomValue(isHIDSupportedAtom);
 	const connectedDevice = useAtomValue(connectedHidDevicesAtom);
 	const { t } = useTranslation();
 
@@ -206,8 +210,8 @@ export const TaikoControllerSelector = () => {
 					setOpened(v);
 				}}
 			>
-				<Dialog.Trigger>
-					<Button variant="surface">
+				<Dialog.Trigger disabled={!hidSupported}>
+					<Button disabled={!hidSupported} variant="surface">
 						{connectedDevice
 							? t("dialogs.taikoControllerSelector.button.connected", "已连接")
 							: t(

@@ -24,6 +24,7 @@ const donAudioBuffer = ctx.decodeAudioData(donAudioData.buffer);
 const kaAudioBuffer = ctx.decodeAudioData(kaAudioData.buffer);
 
 export async function playDonAudio() {
+	await ctx.resume();
 	const source = ctx.createBufferSource();
 	source.buffer = await donAudioBuffer;
 	source.onended = () => {
@@ -34,6 +35,7 @@ export async function playDonAudio() {
 }
 
 export async function playKaAudio() {
+	await ctx.resume();
 	const source = ctx.createBufferSource();
 	source.buffer = await kaAudioBuffer;
 	source.onended = () => {
