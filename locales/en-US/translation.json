@@ -1,0 +1,206 @@
+{
+  "window": {
+    "title": "Steve Taiko Configurator"
+  },
+  "topbar": {
+    "page": {
+      "config": "Config",
+      "test": "Test",
+      "about": "About"
+    },
+    "languageSelector": {
+      "displayLanguage": {
+        "cimode": "Localization ID"
+      }
+    },
+    "saveConfigButton": {
+      "label": "Save Config"
+    }
+  },
+  "page": {
+    "about": {
+      "appDesc": "A tool to config SteveTaikoCon Controller and test any type of Tatacon.",
+      "freewareTip": "This tool is an open-sourced freeware.",
+      "downloadDesktopVersion": "Download Tauri Desktop Version"
+    },
+    "config": {
+      "disabledTips": {
+        "webHidUnsupported": "Configuration page is disabled as your browser doesn't support WebHID API.",
+        "controllerNotConnected": "Please connect your SteveTaikoCon / Tatacon by clicking button on the top-left."
+      },
+      "tabs": {
+        "sensor": "Sensors",
+        "keyBinding": "Key Bindings"
+      },
+      "keyBindingSettings": {
+        "sideKeyBinding": {
+          "label": "Key Binding of {side}",
+          "description": "The key that your controller will emulate to press when this side / button on controller is hit / pressed."
+        },
+        "keyInvokeDuration": {
+          "label": "Key invoke duration",
+          "description": "Define how long will the key be pressed. In milliseconds. Set to 0 for instant release.<1></1>If invoke time is too long, it may cause lagging. Or if invoke time is too short, the game maybe unable to detect the input.<3></3>If you can't determine how to adjust this value or you are playing official game, set to 16 ms for most of the game and cases.<5></5>If you are using emulators or any game that is <7>based on input events</7>, you can set to 0 for best experienses and lowest latency."
+        }
+      },
+      "sensorSettings": {
+        "sensorMultiplier": {
+          "label": "Sensor value multiplier of {sensorSide}",
+          "description": "Will multiply the sensor value of this side by the number, default is 100%."
+        },
+        "triggerThreshold": {
+          "label": "Trigger threshold",
+          "description": "The input will enter detect state if any sensor value exceeded this number, unit can be considered as voltage (mV). <1></1>Too low a value may cause crosstalk, and too high a value may need more force to hit drum even can't be detected. <3></3>You can confirm your config effect at the test page."
+        },
+        "ledHitIndicator": {
+          "label": "Enable LED hid indicator",
+          "description": "Can light up the on-board LED to response hits, red for surface and blue for rim. <1></1>You can use this to check the latency between the controller and the computer. (This LED can be considered as zero-latency)"
+        },
+        "doubleSideHitDetection": {
+          "label": "Enable double hit detection (Experimental)",
+          "description": "Whether treat both side hit as a double hit, and press both side of the buttons."
+        }
+      }
+    },
+    "test": {
+      "keyboardTestEntry": {
+        "label": "Keyboard (DFJK)",
+        "frameSampleMode": {
+          "label": "Per frame sample mode"
+        }
+      },
+      "leftKaTotalCounter": {
+        "tooltip": "Left rim hit total counter"
+      },
+      "leftDonTotalCounter": {
+        "tooltip": "Left surface hit total counter"
+      },
+      "rightDonTotalCounter": {
+        "tooltip": "Right surface hit total counter"
+      },
+      "rightKaTotalCounter": {
+        "tooltip": "Right rim hit total counter"
+      },
+      "resetCounters": {
+        "tooltip": "Reset counters"
+      },
+      "donRendaCounter": {
+        "label": "Surface hid drumroll counter"
+      },
+      "rendaSpeed": {
+        "label": "{speed} hit/s"
+      },
+      "kaRendaCounter": {
+        "label": "Rim hit drumroll counter"
+      },
+      "joystickTestEntry": {
+        "noConnectedLabel": "Joystick {playerIndex} disconnected."
+      }
+    }
+  },
+  "common": {
+    "keyboardUsage": {
+      "keyboardAa": "A Key",
+      "keyboardBb": "B Key",
+      "keyboardCc": "C Key",
+      "keyboardDd": "D Key",
+      "keyboardEe": "E Key",
+      "keyboardFf": "F Key",
+      "keyboardGg": "G Key",
+      "keyboardHh": "H Key",
+      "keyboardIi": "I Key",
+      "keyboardJj": "J Key",
+      "keyboardKk": "K Key",
+      "keyboardLl": "L Key",
+      "keyboardMm": "M Key",
+      "keyboardNn": "N Key",
+      "keyboardOo": "O Key",
+      "keyboardPp": "P Key",
+      "keyboardQq": "Q Key",
+      "keyboardRr": "R Key",
+      "keyboardSs": "S Key",
+      "keyboardTt": "T Key",
+      "keyboardUu": "U Key",
+      "keyboardVv": "V Key",
+      "keyboardWw": "W Key",
+      "keyboardXx": "X Key",
+      "keyboardYy": "Y Key",
+      "keyboardZz": "Z Key",
+      "keyboard1Exclamation": "1 Key",
+      "keyboard2At": "2 Key",
+      "keyboard3Hash": "3 Key",
+      "keyboard4Dollar": "4 Key",
+      "keyboard5Percent": "5 Key",
+      "keyboard6Caret": "6 Key",
+      "keyboard7Ampersand": "7 Key",
+      "keyboard8Asterisk": "8 Key",
+      "keyboard9OpenParens": "9 Key",
+      "keyboard0CloseParens": "0 Key",
+      "keyboardEnter": "Enter Key",
+      "keyboardEscape": "Escape Key",
+      "keyboardBackspace": "Backspace Key",
+      "keyboardTab": "Tab Key",
+      "keyboardSpacebar": "Space Key",
+      "keyboardDashUnderscore": "Minus Key",
+      "keyboardEqualPlus": "Equal Key",
+      "keyboardOpenBracketBrace": "Left Bracket Key",
+      "keyboardCloseBracketBrace": "Right Bracket Key",
+      "keyboardBackslashBar": "Backslash Bar Key",
+      "keyboardNonUSHash": "Non US Hash Key",
+      "keyboardSemiColon": "Semi Colon Key",
+      "keyboardSingleDoubleQuote": "Single Double Quote Key",
+      "keyboardBacktickTilde": "Backtick Tilde Key",
+      "keyboardCommaLess": "Comma Less Key",
+      "keyboardPeriodGreater": "Period Greater Key",
+      "keyboardSlashQuestion": "Slash Question Key",
+      "keyboardCapsLock": "Caps Lock Key",
+      "keyboardF1": "F1 Key",
+      "keyboardF2": "F2 Key",
+      "keyboardF3": "F3 Key",
+      "keyboardF4": "F4 Key",
+      "keyboardF5": "F5 Key",
+      "keyboardF6": "F6 Key",
+      "keyboardF7": "F7 Key",
+      "keyboardF8": "F8 Key",
+      "keyboardF9": "F9 Key",
+      "keyboardF10": "F10 Key",
+      "keyboardF11": "F11 Key",
+      "keyboardF12": "F12 Key",
+      "keyboardRightArrow": "Right Arrow Key",
+      "keyboardLeftArrow": "Left Arrow Key",
+      "keyboardDownArrow": "Down Arrow Key",
+      "keyboardUpArrow": "Up Arrow Key"
+    },
+    "drumSide": {
+      "leftKa": "Left rim",
+      "leftDon": "Left surface",
+      "rightDon": "Right surface",
+      "rightKa": "Right rim",
+      "customButton1": "Custom button 1",
+      "customButton2": "Custom button 2",
+      "customButton3": "Custom button 3",
+      "customButton4": "Custom button 4"
+    }
+  },
+  "dialogs": {
+    "taikoControllerSelector": {
+      "item": {
+        "serialNumber": "Serial Number: {serialNumber}",
+        "connected": "Connected"
+      },
+      "button": {
+        "connected": "Connected",
+        "selectController": "Select Taiko Controller",
+        "reloadConfig": "Reload config"
+      },
+      "title": "Detected Taiko Controllers",
+      "noControllerTip": "Can't detect any Taiko Controllers<1></1>Please check your connection between your computer and controllers.<3></3>And make sure your controller has been switched into keyboard mode."
+    },
+    "webHidCheck": {
+      "title": "WebHID API Unsupported",
+      "desc": "This website requires browser with WebHID API supported. Please use the latest browser like Chrome / Chromium or Microsoft Edge. Or install desktop version of Steve Taiko Configurator.",
+      "refer": "See more: ",
+      "referLink": "WebHID API Compatibility Sheet",
+      "browseOnly": "Browse only"
+    }
+  }
+}
