@@ -20,7 +20,8 @@
   "page": {
     "about": {
       "appDesc": "A tool to config SteveTaikoCon Controller and test any type of Tatacon.",
-      "freewareTip": "This tool is an open-sourced freeware."
+      "freewareTip": "This tool is an open-sourced freeware.",
+      "downloadDesktopVersion": "Download Tauri Desktop Version"
     },
     "config": {
       "disabledTips": {
@@ -48,158 +49,158 @@
         },
         "triggerThreshold": {
           "label": "Trigger threshold",
-          "description": "任意传感器数值超过这个数字则进入判定阶段，单位可以当作电压值（mV）理解。<1></1>过低的值容易导致串音，过高的值会需要用更大的力气敲击，甚至可能导致吃音。<3></3>可以在调节设置后在测试页面中确认敲击效果。"
+          "description": "The input will enter detect state if any sensor value exceeded this number, unit can be considered as voltage (mV). <1></1>Too low a value may cause crosstalk, and too high a value may need more force to hit drum even can't be detected. <3></3>You can confirm your config effect at the test page."
         },
         "ledHitIndicator": {
-          "label": "启用 LED 敲击指示灯",
-          "description": "在判定的时候可以通过亮起 LED 灯指示当前敲击的结果，红色代表鼓面，蓝色代表鼓边。<1></1>可以借助此功能来确认与电脑之间的延迟情况（此指示灯可以被认为是零延迟的）"
+          "label": "Enable LED hid indicator",
+          "description": "Can light up the on-board LED to response hits, red for surface and blue for rim. <1></1>You can use this to check the latency between the controller and the computer. (This LED can be considered as zero-latency)"
         },
         "doubleSideHitDetection": {
-          "label": "启用双押判定（实验性）",
-          "description": "在鼓面两侧或鼓边两侧同时敲击时，是否判定为双押，并同时按下两个按键。"
+          "label": "Enable double hit detection (Experimental)",
+          "description": "Whether treat both side hit as a double hit, and press both side of the buttons."
         }
       }
     },
     "test": {
       "keyboardTestEntry": {
-        "label": "键盘（DFJK）",
+        "label": "Keyboard (DFJK)",
         "frameSampleMode": {
-          "label": "逐帧采样模式"
+          "label": "Per frame sample mode"
         }
       },
       "leftKaTotalCounter": {
-        "tooltip": "左鼓边敲击总计数"
+        "tooltip": "Left rim hit total counter"
       },
       "leftDonTotalCounter": {
-        "tooltip": "左鼓面敲击总计数"
+        "tooltip": "Left surface hit total counter"
       },
       "rightDonTotalCounter": {
-        "tooltip": "右鼓面敲击总计数"
+        "tooltip": "Right surface hit total counter"
       },
       "rightKaTotalCounter": {
-        "tooltip": "右鼓边敲击总计数"
+        "tooltip": "Right rim hit total counter"
       },
       "resetCounters": {
-        "tooltip": "重置计数"
+        "tooltip": "Reset counters"
       },
       "donRendaCounter": {
-        "label": "鼓面连打计数"
+        "label": "Surface hid drumroll counter"
       },
       "rendaSpeed": {
-        "label": "{speed} 下/秒"
+        "label": "{speed} hit/s"
       },
       "kaRendaCounter": {
-        "label": "鼓边连打计数"
+        "label": "Rim hit drumroll counter"
       },
       "joystickTestEntry": {
-        "noConnectedLabel": "手柄 {playerIndex} 未连接"
+        "noConnectedLabel": "Joystick {playerIndex} disconnected."
       }
     }
   },
   "common": {
     "keyboardUsage": {
-      "keyboardAa": "字母 A 键",
-      "keyboardBb": "字母 B 键",
-      "keyboardCc": "字母 C 键",
-      "keyboardDd": "字母 D 键",
-      "keyboardEe": "字母 E 键",
-      "keyboardFf": "字母 F 键",
-      "keyboardGg": "字母 G 键",
-      "keyboardHh": "字母 H 键",
-      "keyboardIi": "字母 I 键",
-      "keyboardJj": "字母 J 键",
-      "keyboardKk": "字母 K 键",
-      "keyboardLl": "字母 L 键",
-      "keyboardMm": "字母 M 键",
-      "keyboardNn": "字母 N 键",
-      "keyboardOo": "字母 O 键",
-      "keyboardPp": "字母 P 键",
-      "keyboardQq": "字母 Q 键",
-      "keyboardRr": "字母 R 键",
-      "keyboardSs": "字母 S 键",
-      "keyboardTt": "字母 T 键",
-      "keyboardUu": "字母 U 键",
-      "keyboardVv": "字母 V 键",
-      "keyboardWw": "字母 W 键",
-      "keyboardXx": "字母 X 键",
-      "keyboardYy": "字母 Y 键",
-      "keyboardZz": "字母 Z 键",
-      "keyboard1Exclamation": "数字 1 键",
-      "keyboard2At": "数字 2 键",
-      "keyboard3Hash": "数字 3 键",
-      "keyboard4Dollar": "数字 4 键",
-      "keyboard5Percent": "数字 5 键",
-      "keyboard6Caret": "数字 6 键",
-      "keyboard7Ampersand": "数字 7 键",
-      "keyboard8Asterisk": "数字 8 键",
-      "keyboard9OpenParens": "数字 9 键",
-      "keyboard0CloseParens": "数字 0 键",
-      "keyboardEnter": "回车键",
-      "keyboardEscape": "退出键",
-      "keyboardBackspace": "退格键",
-      "keyboardTab": "制表键",
-      "keyboardSpacebar": "空格键",
-      "keyboardDashUnderscore": "减号键",
-      "keyboardEqualPlus": "等号键",
-      "keyboardOpenBracketBrace": "左括号键",
-      "keyboardCloseBracketBrace": "右括号键",
-      "keyboardBackslashBar": "反斜杠键",
-      "keyboardNonUSHash": "非美式井号键",
-      "keyboardSemiColon": "分号键",
-      "keyboardSingleDoubleQuote": "单引号键",
-      "keyboardBacktickTilde": "反引号键",
-      "keyboardCommaLess": "逗号键",
-      "keyboardPeriodGreater": "句号键",
-      "keyboardSlashQuestion": "斜杠键",
-      "keyboardCapsLock": "大写锁定键",
-      "keyboardF1": "功能键 F1",
-      "keyboardF2": "功能键 F2",
-      "keyboardF3": "功能键 F3",
-      "keyboardF4": "功能键 F4",
-      "keyboardF5": "功能键 F5",
-      "keyboardF6": "功能键 F6",
-      "keyboardF7": "功能键 F7",
-      "keyboardF8": "功能键 F8",
-      "keyboardF9": "功能键 F9",
-      "keyboardF10": "功能键 F10",
-      "keyboardF11": "功能键 F11",
-      "keyboardF12": "功能键 F12",
-      "keyboardRightArrow": "右箭头键",
-      "keyboardLeftArrow": "左箭头键",
-      "keyboardDownArrow": "下箭头键",
-      "keyboardUpArrow": "上箭头键"
+      "keyboardAa": "A Key",
+      "keyboardBb": "B Key",
+      "keyboardCc": "C Key",
+      "keyboardDd": "D Key",
+      "keyboardEe": "E Key",
+      "keyboardFf": "F Key",
+      "keyboardGg": "G Key",
+      "keyboardHh": "H Key",
+      "keyboardIi": "I Key",
+      "keyboardJj": "J Key",
+      "keyboardKk": "K Key",
+      "keyboardLl": "L Key",
+      "keyboardMm": "M Key",
+      "keyboardNn": "N Key",
+      "keyboardOo": "O Key",
+      "keyboardPp": "P Key",
+      "keyboardQq": "Q Key",
+      "keyboardRr": "R Key",
+      "keyboardSs": "S Key",
+      "keyboardTt": "T Key",
+      "keyboardUu": "U Key",
+      "keyboardVv": "V Key",
+      "keyboardWw": "W Key",
+      "keyboardXx": "X Key",
+      "keyboardYy": "Y Key",
+      "keyboardZz": "Z Key",
+      "keyboard1Exclamation": "1 Key",
+      "keyboard2At": "2 Key",
+      "keyboard3Hash": "3 Key",
+      "keyboard4Dollar": "4 Key",
+      "keyboard5Percent": "5 Key",
+      "keyboard6Caret": "6 Key",
+      "keyboard7Ampersand": "7 Key",
+      "keyboard8Asterisk": "8 Key",
+      "keyboard9OpenParens": "9 Key",
+      "keyboard0CloseParens": "0 Key",
+      "keyboardEnter": "Enter Key",
+      "keyboardEscape": "Escape Key",
+      "keyboardBackspace": "Backspace Key",
+      "keyboardTab": "Tab Key",
+      "keyboardSpacebar": "Space Key",
+      "keyboardDashUnderscore": "Minus Key",
+      "keyboardEqualPlus": "Equal Key",
+      "keyboardOpenBracketBrace": "Left Bracket Key",
+      "keyboardCloseBracketBrace": "Right Bracket Key",
+      "keyboardBackslashBar": "Backslash Bar Key",
+      "keyboardNonUSHash": "Non US Hash Key",
+      "keyboardSemiColon": "Semi Colon Key",
+      "keyboardSingleDoubleQuote": "Single Double Quote Key",
+      "keyboardBacktickTilde": "Backtick Tilde Key",
+      "keyboardCommaLess": "Comma Less Key",
+      "keyboardPeriodGreater": "Period Greater Key",
+      "keyboardSlashQuestion": "Slash Question Key",
+      "keyboardCapsLock": "Caps Lock Key",
+      "keyboardF1": "F1 Key",
+      "keyboardF2": "F2 Key",
+      "keyboardF3": "F3 Key",
+      "keyboardF4": "F4 Key",
+      "keyboardF5": "F5 Key",
+      "keyboardF6": "F6 Key",
+      "keyboardF7": "F7 Key",
+      "keyboardF8": "F8 Key",
+      "keyboardF9": "F9 Key",
+      "keyboardF10": "F10 Key",
+      "keyboardF11": "F11 Key",
+      "keyboardF12": "F12 Key",
+      "keyboardRightArrow": "Right Arrow Key",
+      "keyboardLeftArrow": "Left Arrow Key",
+      "keyboardDownArrow": "Down Arrow Key",
+      "keyboardUpArrow": "Up Arrow Key"
     },
     "drumSide": {
-      "leftKa": "左鼓边",
-      "leftDon": "左鼓面",
-      "rightDon": "右鼓面",
-      "rightKa": "右鼓边",
-      "customButton1": "自定义按钮 1",
-      "customButton2": "自定义按钮 2",
-      "customButton3": "自定义按钮 3",
-      "customButton4": "自定义按钮 4"
+      "leftKa": "Left rim",
+      "leftDon": "Left surface",
+      "rightDon": "Right surface",
+      "rightKa": "Right rim",
+      "customButton1": "Custom button 1",
+      "customButton2": "Custom button 2",
+      "customButton3": "Custom button 3",
+      "customButton4": "Custom button 4"
     }
   },
   "dialogs": {
     "taikoControllerSelector": {
       "item": {
-        "serialNumber": "序列号：{serialNumber}",
-        "connected": "已连接"
+        "serialNumber": "Serial Number: {serialNumber}",
+        "connected": "Connected"
       },
       "button": {
-        "connected": "已连接",
-        "selectController": "选择太鼓控制器",
-        "reloadConfig": "重载电控配置"
+        "connected": "Connected",
+        "selectController": "Select Taiko Controller",
+        "reloadConfig": "Reload config"
       },
-      "title": "检测到的太鼓控制器",
-      "noControllerTip": "未检测到太鼓控制器<1></1>请检查你的电脑是否正确连接到了太鼓控制器<3></3>且太鼓控制器已切换到键盘模式"
+      "title": "Detected Taiko Controllers",
+      "noControllerTip": "Can't detect any Taiko Controllers<1></1>Please check your connection between your computer and controllers.<3></3>And make sure your controller has been switched into keyboard mode."
     },
     "webHidCheck": {
-      "title": "你的浏览器不支持 WebHID API",
-      "desc": "本网页需要支持 WebHID API 的浏览器才能正常工作。请使用最新版的 Chrome/Chromuim 或 Microsoft Edge 浏览器。",
-      "refer": "详情请参考：<1><0><0>WebHID API 兼容性清单</0></0></1>",
-      "referLink": "WebHID API 兼容性清单",
-      "browseOnly": "仅浏览"
+      "title": "WebHID API Unsupported",
+      "desc": "This website requires browser with WebHID API supported. Please use the latest browser like Chrome / Chromium or Microsoft Edge. Or install desktop version of Steve Taiko Configurator.",
+      "refer": "See more: ",
+      "referLink": "WebHID API Compatibility Sheet",
+      "browseOnly": "Browse only"
     }
   }
 }
