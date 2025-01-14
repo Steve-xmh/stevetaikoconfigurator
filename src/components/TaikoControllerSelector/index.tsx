@@ -36,9 +36,11 @@ import {
 	RadioCards,
 	Spinner,
 	Text,
+	Tooltip,
 } from "@radix-ui/themes";
 import { atom, useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
 import { useCallback, useEffect, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 
 const taikoControllerSelectorOpenedAtom = atom(false);
 const isOpeningAtom = atom(false);
@@ -47,6 +49,7 @@ const TaikoControllerSelectorItem = (props: {
 	hidDevice: HidDevice;
 	onSelected?: () => void;
 }) => {
+	const { t } = useTranslation();
 	const setOpened = useSetAtom(taikoControllerSelectorOpenedAtom);
 	const setConnectedDevice = useSetAtom(connectedHidDevicesAtom);
 	const [opening, setOpening] = useState(false);
@@ -76,11 +79,21 @@ const TaikoControllerSelectorItem = (props: {
 			<Flex direction="column" flexGrow="1">
 				<Text>{props.hidDevice.product}</Text>
 				<Text size="1" color="gray">
-					序列号：{props.hidDevice.serialNumber}
+					{t(
+						"dialogs.taikoControllerSelector.item.serialNumber",
+						"序列号：{serialNumber}",
+						{
+							serialNumber: props.hidDevice.serialNumber,
+						},
+					)}
 				</Text>
 			</Flex>
 			{connectedDevice?.path === props.hidDevice.path && (
-				<Text color="grass">已连接</Text>
+				<Text color="grass">
+					<Trans i18nKey="dialogs.taikoControllerSelector.item.connected">
+						已连接
+					</Trans>
+				</Text>
 			)}
 			{opening && <Spinner />}
 		</RadioCards.Item>
@@ -92,9 +105,8 @@ export const TaikoControllerSelector = () => {
 	const [opened, setOpened] = useAtom(taikoControllerSelectorOpenedAtom);
 	const isOpening = useAtomValue(isOpeningAtom);
 	const hidDevices = useAtomValue(hidDevicesAtom);
-	const [connectedDevice, setConnectedDevice] = useAtom(
-		connectedHidDevicesAtom,
-	);
+	const connectedDevice = useAtomValue(connectedHidDevicesAtom);
+	const { t } = useTranslation();
 
 	const reloadConfigurations = useCallback(async () => {
 		const commonConfigReport = await recvFeatureReportFromHid(0x11);
@@ -155,7 +167,7 @@ export const TaikoControllerSelector = () => {
 		);
 	}, [store]);
 
-	if (!import.meta.env.TAURI_ENV_PLATFORM) {
+	if (import.meta.env.TAURI_ENV_PLATFORM) {
 		useEffect(() => {
 			const interval = setInterval(async () => {
 				const devices = await getAllHidDevices();
@@ -175,6 +187,14 @@ export const TaikoControllerSelector = () => {
 
 			return () => clearInterval(interval);
 		}, [store, reloadConfigurations]);
+	} else {
+		useEffect(() => {
+			if (opened) {
+				getAllHidDevices().then((devices) =>
+					store.set(hidDevicesAtom, devices),
+				);
+			}
+		}, [opened, store]);
 	}
 
 	return (
@@ -188,11 +208,21 @@ export const TaikoControllerSelector = () => {
 			>
 				<Dialog.Trigger>
 					<Button variant="surface">
-						{connectedDevice ? "已连接" : "选择太鼓控制器"}
+						{connectedDevice
+							? t("dialogs.taikoControllerSelector.button.connected", "已连接")
+							: t(
+									"dialogs.taikoControllerSelector.button.selectController",
+									"选择太鼓控制器",
+								)}
 					</Button>
 				</Dialog.Trigger>
 				<Dialog.Content>
-					<Dialog.Title>检测到的太鼓控制器</Dialog.Title>
+					<Dialog.Description />
+					<Dialog.Title>
+						<Trans i18nKey="dialogs.taikoControllerSelector.title">
+							检测到的太鼓控制器
+						</Trans>
+					</Dialog.Title>
 					<RadioCards.Root>
 						{hidDevices.map((d) => (
 							<TaikoControllerSelectorItem
@@ -203,24 +233,34 @@ export const TaikoControllerSelector = () => {
 						))}
 						{hidDevices.length === 0 && (
 							<Text align="center" wrap="wrap" color="gray">
-								未检测到太鼓控制器
-								<br />
-								请检查你的电脑是否正确连接到了太鼓控制器
-								<br />
-								且太鼓控制器已切换到键盘模式
+								<Trans i18nKey="dialogs.taikoControllerSelector.noControllerTip">
+									未检测到太鼓控制器
+									<br />
+									请检查你的电脑是否正确连接到了太鼓控制器
+									<br />
+									且太鼓控制器已切换到键盘模式
+								</Trans>
 							</Text>
 						)}
 					</RadioCards.Root>
 				</Dialog.Content>
 			</Dialog.Root>
-			<IconButton
-				ml="2"
-				variant="soft"
-				disabled={!connectedDevice}
-				onClick={reloadConfigurations}
+			<Tooltip
+				content={t(
+					"dialogs.taikoControllerSelector.button.reloadConfig",
+					"重载电控配置",
+				)}
+				side="bottom"
 			>
-				<ReloadIcon />
-			</IconButton>
+				<IconButton
+					ml="2"
+					variant="soft"
+					disabled={!connectedDevice}
+					onClick={reloadConfigurations}
+				>
+					<ReloadIcon />
+				</IconButton>
+			</Tooltip>
 		</>
 	);
 };

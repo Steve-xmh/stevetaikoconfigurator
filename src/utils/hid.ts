@@ -9,30 +9,33 @@ export interface HidDevice {
 	path: string;
 }
 
-abstract class BaseHIDDevice {}
-
-class TauriHIDDevice extends BaseHIDDevice implements HidDevice {}
-
-class WebHIDDevice extends BaseHIDDevice implements HidDevice {}
-
 export function isHIDSupported() {
 	if (import.meta.env.TAURI_ENV_PLATFORM) return true;
 	return "hid" in navigator;
 }
 
+let webHidConnectedDevice: HIDDevice | null = null;
+
 export async function getAllHidDevices(): Promise<HidDevice[]> {
 	if (import.meta.env.TAURI_ENV_PLATFORM)
 		return invoke<HidDevice[]>("get_all_hids");
-
+	await navigator.hid.requestDevice({
+		filters: [
+			{
+				vendorId: 0x303a,
+				productId: 0x456d,
+			},
+		],
+	});
 	const devices = await navigator.hid.getDevices();
-	return devices.map((device) => {
+	return devices.map((device, i) => {
 		return {
 			manufacturer: "",
 			product: device.productName,
-			serialNumber: "",
+			serialNumber: `WebHID Index ${i}`,
 			vendorId: device.vendorId,
 			productId: device.productId,
-			path: "",
+			path: `${i}`,
 		};
 	});
 }
@@ -42,6 +45,14 @@ export async function reopenHidDevice(devicePath: string) {
 		await invoke<HidDevice[]>("reopen_device", {
 			devicePath,
 		});
+	const deviceIndex = Number.parseInt(devicePath);
+	const devices = await navigator.hid.getDevices();
+	for (const device of devices) {
+		if (device.opened) await device.close();
+	}
+	const device = devices[deviceIndex];
+	if (!device.opened) await device.open();
+	webHidConnectedDevice = device;
 }
 
 export async function sendFeatureReportToHid(
@@ -53,6 +64,12 @@ export async function sendFeatureReportToHid(
 				new Uint8Array(value instanceof ArrayBuffer ? value : value.buffer),
 			),
 		});
+	else if (webHidConnectedDevice) {
+		const data = new Uint8Array(
+			value instanceof ArrayBuffer ? value : value.buffer,
+		);
+		await webHidConnectedDevice.sendFeatureReport(data[0], data.slice(1));
+	}
 }
 
 export async function recvFeatureReportFromHid(reportId: number) {
@@ -64,10 +81,24 @@ export async function recvFeatureReportFromHid(reportId: number) {
 				}),
 			).buffer,
 		);
+	if (webHidConnectedDevice)
+		return await webHidConnectedDevice.receiveFeatureReport(reportId);
+	return null;
 }
 
-export async function getConnectedHidDevice() {
+export async function getConnectedHidDevice(): Promise<HidDevice | null> {
 	if (import.meta.env.TAURI_ENV_PLATFORM)
 		return await invoke<HidDevice | null>("get_connected_hid");
-	return null;
+	const devices = await navigator.hid.getDevices();
+	const deviceIndex = devices.findIndex((device) => device.opened);
+	return webHidConnectedDevice
+		? {
+				manufacturer: "",
+				product: webHidConnectedDevice.productName,
+				serialNumber: "",
+				vendorId: webHidConnectedDevice.vendorId,
+				productId: webHidConnectedDevice.productId,
+				path: `${deviceIndex}`,
+			}
+		: null;
 }

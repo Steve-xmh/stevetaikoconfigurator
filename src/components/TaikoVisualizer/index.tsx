@@ -1,5 +1,7 @@
 import { useImperativeHandle, useLayoutEffect, useRef, type Ref } from "react";
-import styles from "./index.module.css";
+import { useAtomValue } from "jotai";
+import { enableSoundAtom } from "$/states/main.ts";
+import { playDonAudio, playKaAudio } from "$/utils/audio.ts";
 
 export interface TaikoVisualizerRef {
 	invokeLeftRimAnimation: () => void;
@@ -21,6 +23,7 @@ export const TaikoVisualizer = (props: {
 	onRightSurfaceInvoked?: () => void;
 	ref?: Ref<TaikoVisualizerRef>;
 }) => {
+	const playSound = useAtomValue(enableSoundAtom);
 	const fillColor = props.fillColor ?? DEFAULT_FILL_COLOR;
 	const outlineColor = props.outlineColor ?? DEFAULT_OUTLINE_COLOR;
 
@@ -54,6 +57,7 @@ export const TaikoVisualizer = (props: {
 						duration: 150,
 					},
 				);
+				if (playSound) playKaAudio();
 				props.onLeftRimInvoked?.();
 			},
 			invokeRightRimAnimation: () => {
@@ -66,6 +70,7 @@ export const TaikoVisualizer = (props: {
 						duration: 150,
 					},
 				);
+				if (playSound) playKaAudio();
 				props.onRightRimInvoked?.();
 			},
 			invokeLeftSurfaceAnimation: () => {
@@ -78,6 +83,7 @@ export const TaikoVisualizer = (props: {
 						duration: 150,
 					},
 				);
+				if (playSound) playDonAudio();
 				props.onLeftSurfaceInvoked?.();
 			},
 			invokeRightSurfaceAnimation: () => {
@@ -90,6 +96,7 @@ export const TaikoVisualizer = (props: {
 						duration: 150,
 					},
 				);
+				if (playSound) playDonAudio();
 				props.onRightSurfaceInvoked?.();
 			},
 		}),
@@ -98,6 +105,7 @@ export const TaikoVisualizer = (props: {
 			props.onRightRimInvoked,
 			props.onLeftSurfaceInvoked,
 			props.onRightSurfaceInvoked,
+			playSound,
 		],
 	);
 	return (

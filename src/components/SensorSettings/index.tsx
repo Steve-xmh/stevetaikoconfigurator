@@ -11,7 +11,7 @@ import {
 import { Flex, TextField, Box, Slider, Text, Switch } from "@radix-ui/themes";
 import { useAtom, useSetAtom } from "jotai";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 export const SENSOR_MULTIPLIER_ATOM_MAPS = {
 	leftKa: leftKaSensorMultiplierAtom,
@@ -47,9 +47,19 @@ const SensorMultiplierSetting = (props: {
 				gap="4"
 			>
 				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
-					<Text size="2">{labelText}传感器数值倍率</Text>
+					<Text size="2">
+						{t(
+							"page.config.sensorSettings.sensorMultiplier.label",
+							"{sensorSide} 传感器数值倍率",
+							{
+								sensorSide: labelText,
+							},
+						)}
+					</Text>
 					<Text size="1" color="gray">
-						会对该侧信号值做缩放处理，默认为 100%
+						<Trans i18nKey="page.config.sensorSettings.sensorMultiplier.description">
+							会对该侧信号值做缩放处理，默认为 100%
+						</Trans>
 					</Text>
 				</Flex>
 				<TextField.Root
@@ -97,13 +107,19 @@ const TriggerThresholdSetting = () => {
 				gap="4"
 			>
 				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
-					<Text size="2">判定阈值</Text>
+					<Text size="2">
+						<Trans i18nKey="page.config.sensorSettings.triggerThreshold.label">
+							判定阈值
+						</Trans>
+					</Text>
 					<Text size="1" color="gray">
-						任意传感器数值超过这个数字则进入判定阶段，单位可以当作电压值（mV）理解。
-						<br />
-						过低的值容易导致串音，过高的值会需要用更大的力气敲击，甚至可能导致吃音。
-						<br />
-						可以在调节设置后在测试页面中确认敲击效果。
+						<Trans i18nKey="page.config.sensorSettings.triggerThreshold.description">
+							任意传感器数值超过这个数字则进入判定阶段，单位可以当作电压值（mV）理解。
+							<br />
+							过低的值容易导致串音，过高的值会需要用更大的力气敲击，甚至可能导致吃音。
+							<br />
+							可以在调节设置后在测试页面中确认敲击效果。
+						</Trans>
 					</Text>
 				</Flex>
 				<TextField.Root
@@ -149,12 +165,18 @@ const LedHitIndicatorSetting = () => {
 				gap="4"
 			>
 				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
-					<Text size="2">启用 LED 敲击指示灯</Text>
+					<Text size="2">
+						<Trans i18nKey="page.config.sensorSettings.ledHitIndicator.label">
+							启用 LED 敲击指示灯
+						</Trans>
+					</Text>
 					<Text size="1" color="gray">
-						在判定的时候可以通过亮起 LED
-						灯指示当前敲击的结果，红色代表鼓面，蓝色代表鼓边。
-						<br />
-						可以借助此功能来确认与电脑之间的延迟情况（此指示灯可以被认为是零延迟的）
+						<Trans i18nKey="page.config.sensorSettings.ledHitIndicator.description">
+							在判定的时候可以通过亮起 LED
+							灯指示当前敲击的结果，红色代表鼓面，蓝色代表鼓边。
+							<br />
+							可以借助此功能来确认与电脑之间的延迟情况（此指示灯可以被认为是零延迟的）
+						</Trans>
 					</Text>
 				</Flex>
 				<Switch
@@ -185,10 +207,15 @@ const DoubleSideHitDetectionSetting = () => {
 				gap="4"
 			>
 				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
-					<Text size="2">启用双押判定（实验性）</Text>
+					<Text size="2">
+						<Trans i18nKey="page.config.sensorSettings.doubleSideHitDetection.label">
+							启用双押判定（实验性）
+						</Trans>
+					</Text>
 					<Text size="1" color="gray">
-						在鼓面两侧或鼓边两侧同时敲击时，是否判定为双押，并同时按下两个按键。
-						<br />
+						<Trans i18nKey="page.config.sensorSettings.doubleSideHitDetection.description">
+							在鼓面两侧或鼓边两侧同时敲击时，是否判定为双押，并同时按下两个按键。
+						</Trans>
 					</Text>
 				</Flex>
 				<Switch

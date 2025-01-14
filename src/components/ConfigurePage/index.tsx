@@ -6,6 +6,7 @@ import { TaikoVisualizerForKeyboard } from "../TaikoVisualizer/keyboard.tsx";
 import { atom, useAtomValue } from "jotai";
 import { isHIDSupported } from "$/utils/hid.ts";
 import { connectedHidDevicesAtom } from "$/states/main.ts";
+import { Trans } from "react-i18next";
 
 const isHIDSupportedAtom = atom(() => isHIDSupported());
 
@@ -30,12 +31,16 @@ export const ConfigurePage = () => {
 		>
 			{!isHidSupported && (
 				<Text color="yellow" align="center" size="2">
-					因浏览器不支持 WebHID API ，配置页面无法使用
+					<Trans i18nKey="page.config.disabledTips.webHidUnsupported">
+						因浏览器不支持 WebHID API ，配置页面无法使用
+					</Trans>
 				</Text>
 			)}
 			{isHidSupported && !hidDevice && (
 				<Text color="yellow" align="center" size="2">
-					请点击左上角的按钮连接太鼓控制器
+					<Trans i18nKey="page.config.disabledTips.controllerNotConnected">
+						请点击左上角的按钮连接太鼓控制器
+					</Trans>
 				</Text>
 			)}
 			<Flex
@@ -68,8 +73,12 @@ export const ConfigurePage = () => {
 				}}
 			>
 				<Tabs.List>
-					<Tabs.Trigger value="sensor">传感设置</Tabs.Trigger>
-					<Tabs.Trigger value="keybinding">按键设置</Tabs.Trigger>
+					<Tabs.Trigger value="sensor">
+						<Trans i18nKey="page.config.tabs.sensor">传感设置</Trans>
+					</Tabs.Trigger>
+					<Tabs.Trigger value="keybinding">
+						<Trans i18nKey="page.config.tabs.keyBinding">按键设置</Trans>
+					</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="sensor">
 					<SensorSettings />

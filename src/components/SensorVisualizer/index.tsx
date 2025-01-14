@@ -3,7 +3,7 @@ import { recvFeatureReportFromHid } from "$/utils/hid.ts";
 import { Flex, Text } from "@radix-ui/themes";
 import { Progress } from "@radix-ui/themes/src/index.js";
 import { atom, useAtom, useAtomValue } from "jotai";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 const MAX_SENSOR_VALUE = 2000;

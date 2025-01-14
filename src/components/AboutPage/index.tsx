@@ -1,5 +1,6 @@
-import { Button, Flex, Heading, IconButton, Text } from "@radix-ui/themes";
+import { Button, Flex, Heading, Text } from "@radix-ui/themes";
 import LogoIcon from "$/assets/logo.svg?react";
+import { Trans } from "react-i18next";
 
 export const AboutPage = () => {
 	return (
@@ -11,10 +12,14 @@ export const AboutPage = () => {
 					by SteveXMH
 				</Text>
 				<Text color="gray" size="2">
-					用于配置萧鼓太鼓控制器以及测试太鼓控制器的工具
+					<Trans i18nKey="page.about.appDesc">
+						用于配置萧鼓太鼓控制器以及测试太鼓控制器的工具
+					</Trans>
 				</Text>
 				<Text color="gray" size="2">
-					此工具为免费开源的自由软件
+					<Trans i18nKey="page.about.freewareTip">
+						此工具为免费开源的自由软件
+					</Trans>
 				</Text>
 				<Flex gap="2" justify="center">
 					<Button asChild>

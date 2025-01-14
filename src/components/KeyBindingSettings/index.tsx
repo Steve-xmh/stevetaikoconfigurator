@@ -14,7 +14,7 @@ import {
 import { Flex, TextField, Box, Slider, Text, Select } from "@radix-ui/themes";
 import { useAtom, useSetAtom } from "jotai";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 const SIDE_KEY_ATOMS_MAP = {
 	leftKa: leftKaKeyAtom,
@@ -225,9 +225,19 @@ export const SideKeyBindingSettings = (props: {
 	return (
 		<Flex direction="row" width="100%" justify="between" align="center" gap="4">
 			<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
-				<Text size="2">{labelText} 模拟按键</Text>
+				<Text size="2">
+					{t(
+						"page.config.keyBindingSettings.sideKeyBinding.label",
+						"{side} 模拟按键",
+						{
+							side: labelText,
+						},
+					)}
+				</Text>
 				<Text size="1" color="gray">
-					当 此侧/按钮 被 敲击判定/按下 时，电控将会模拟按下的按键
+					<Trans i18nKey="page.config.keyBindingSettings.sideKeyBinding.description">
+						当 此侧/按钮 被 敲击判定/按下 时，电控将会模拟按下的按键
+					</Trans>
 				</Text>
 			</Flex>
 			<Select.Root
@@ -246,7 +256,7 @@ export const SideKeyBindingSettings = (props: {
 					{KEYBOARD_USAGES.map((usage) => (
 						<SideKeyBindingSettingItem
 							key={usage}
-							usage={KeyboardUsage[usage as any]}
+							usage={KeyboardUsage[usage as any] as unknown as KeyboardUsage}
 						/>
 					))}
 				</Select.Content>
@@ -271,17 +281,23 @@ const KeyInvokeDurationSetting = () => {
 				gap="4"
 			>
 				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
-					<Text size="2">按键模拟时长</Text>
+					<Text size="2">
+						<Trans i18nKey="page.config.keyBindingSettings.keyInvokeDuration.label">
+							按键模拟时长
+						</Trans>
+					</Text>
 					<Text size="1" color="gray">
-						即按下按键后多久后松开，单位为毫秒，设置为 0 为按下后立即松开
-						<br />
-						如果模拟时长过长，会导致一定的延迟。如果模拟时长过短，可能会导致游戏无法及时识别到输入。
-						<br />
-						如果不清楚如何调整的话抑或是你正在使用官方游戏软件游玩，可以使用默认的
-						16ms 以适用于大多数游戏情况
-						<br />
-						如果你使用的是模拟器游戏等<b>基于按键事件</b>
-						响应输入的游戏，可以设置为 0 以获得最低的延迟和最好的连打体验。
+						<Trans i18nKey="page.config.keyBindingSettings.keyInvokeDuration.description">
+							即按下按键后多久后松开，单位为毫秒，设置为 0 为按下后立即松开
+							<br />
+							如果模拟时长过长，会导致一定的延迟。如果模拟时长过短，可能会导致游戏无法及时识别到输入。
+							<br />
+							如果不清楚如何调整的话抑或是你正在使用官方游戏软件游玩，可以使用默认的
+							16ms 以适用于大多数游戏情况
+							<br />
+							如果你使用的是模拟器游戏等<b>基于按键事件</b>
+							响应输入的游戏，可以设置为 0 以获得最低的延迟和最好的连打体验。
+						</Trans>
 					</Text>
 				</Flex>
 				<TextField.Root

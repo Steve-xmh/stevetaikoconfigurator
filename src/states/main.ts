@@ -1,5 +1,7 @@
 import type { HidDevice } from "$/utils/hid.ts";
 import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
+import languageResources from "virtual:i18next-loader";
 
 export enum KeyboardUsage {
 	KeyboardAa = 0x04,
@@ -102,3 +104,10 @@ export const customButton4KeyAtom = atom(KeyboardUsage.KeyboardDownArrow);
 export const shouldSaveConfigAtom = atom(false);
 
 export const pageAtom = atom<"config" | "test" | "about">("config");
+
+export const enableSoundAtom = atomWithStorage("enableSound", true);
+
+export const languageAtom = atomWithStorage(
+	"language",
+	navigator.language in languageResources ? navigator.language : "zh-CN",
+);

@@ -9,11 +9,12 @@ import {
 } from "@radix-ui/themes";
 import { TaikoVisualizerForKeyboard } from "../TaikoVisualizer/keyboard.tsx";
 import styles from "./index.module.css";
-import { ReloadIcon, ResetIcon } from "@radix-ui/react-icons";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import { atom, useAtom } from "jotai";
 import { useEffect, useMemo, useRef } from "react";
 import { TaikoVisualizerForJoystick } from "../TaikoVisualizer/joystick.tsx";
 import classNames from "classnames";
+import { Trans, useTranslation } from "react-i18next";
 
 const useAtomState = <T,>(value: T) =>
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -21,6 +22,7 @@ const useAtomState = <T,>(value: T) =>
 
 const KeyboardTestEntry = () => {
 	const [useFrameSampleMode, setUseFrameSampleMode] = useAtomState(false);
+	const { t } = useTranslation();
 
 	const [leftKa, setLeftKa] = useAtomState(0);
 	const [leftDon, setLeftDon] = useAtomState(0);
@@ -87,10 +89,14 @@ const KeyboardTestEntry = () => {
 			/>
 			<Flex gap="2" direction="column">
 				<Text size="4" weight="bold">
-					键盘（DFJK）
+					<Trans i18nKey="page.test.keyboardTestEntry.label">
+						键盘（DFJK）
+					</Trans>
 				</Text>
 				<Text size="2">
-					逐帧采样模式
+					<Trans i18nKey="page.test.keyboardTestEntry.frameSampleMode.label">
+						逐帧采样模式
+					</Trans>
 					<Switch
 						ml="2"
 						checked={useFrameSampleMode}
@@ -98,19 +104,46 @@ const KeyboardTestEntry = () => {
 					/>
 				</Text>
 				<Flex gap="2">
-					<Tooltip content="左鼓边敲击总计数">
+					<Tooltip
+						side="bottom"
+						content={t(
+							"page.test.leftKaTotalCounter.tooltip",
+							"左鼓边敲击总计数",
+						)}
+					>
 						<Box className={styles.rim}>{leftKa}</Box>
 					</Tooltip>
-					<Tooltip content="左鼓面敲击总计数">
+					<Tooltip
+						side="bottom"
+						content={t(
+							"page.test.leftDonTotalCounter.tooltip",
+							"左鼓面敲击总计数",
+						)}
+					>
 						<Box className={styles.surface}>{leftDon}</Box>
 					</Tooltip>
-					<Tooltip content="右鼓面敲击总计数">
+					<Tooltip
+						side="bottom"
+						content={t(
+							"page.test.rightDonTotalCounter.tooltip",
+							"右鼓面敲击总计数",
+						)}
+					>
 						<Box className={styles.surface}>{rightDon}</Box>
 					</Tooltip>
-					<Tooltip content="右鼓边敲击总计数">
+					<Tooltip
+						side="bottom"
+						content={t(
+							"page.test.rightKaTotalCounter.tooltip",
+							"右鼓边敲击总计数",
+						)}
+					>
 						<Box className={styles.rim}>{rightKa}</Box>
 					</Tooltip>
-					<Tooltip content="重置计数">
+					<Tooltip
+						side="bottom"
+						content={t("page.test.resetCounters.tooltip", "重置计数")}
+					>
 						<IconButton
 							variant="soft"
 							onClick={() => {
@@ -128,22 +161,26 @@ const KeyboardTestEntry = () => {
 
 			<Flex gap="2" align="center" direction="column">
 				<Text size="2" color="red">
-					鼓面连打计数
+					<Trans i18nKey="page.test.donRendaCounter.label">鼓面连打计数</Trans>
 				</Text>
 				<Box className={classNames(styles.surface, styles.renda)}>
 					{surfaceRenda}
 				</Box>
 				<Box className={classNames(styles.surface, styles.renda)}>
-					{surfaceRendaTimes.length} 下/秒
+					{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
+						speed: surfaceRendaTimes.length,
+					})}
 				</Box>
 			</Flex>
 			<Flex gap="2" align="center" direction="column">
 				<Text size="2" color="blue">
-					鼓边连打计数
+					<Trans i18nKey="page.test.kaRendaCounter.label">鼓边连打计数</Trans>
 				</Text>
 				<Box className={classNames(styles.rim, styles.renda)}>{rimRenda}</Box>
 				<Box className={classNames(styles.rim, styles.renda)}>
-					{rimRendaTimes.length} 下/秒
+					{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
+						speed: rimRendaTimes.length,
+					})}
 				</Box>
 			</Flex>
 		</Flex>
@@ -155,6 +192,7 @@ const JoystickTestEntry = ({
 }: {
 	playerIndex: number;
 }) => {
+	const { t } = useTranslation();
 	const [gamepadName, setGamepadName] = useAtomState("");
 
 	const [leftKa, setLeftKa] = useAtomState(0);
@@ -257,22 +295,54 @@ const JoystickTestEntry = ({
 			/>
 			<Flex gap="2" direction="column">
 				<Text size="4" weight="bold">
-					{gamepadName || `手柄 ${playerIndex + 1} 未连接`}
+					{gamepadName ||
+						t(
+							"page.test.joystickTestEntry.noConnectedLabel",
+							"手柄 {playerIndex} 未连接",
+							{ playerIndex: playerIndex + 1 },
+						)}
 				</Text>
 				<Flex gap="2">
-					<Tooltip content="左鼓边敲击总计数">
+					<Tooltip
+						side="bottom"
+						content={t(
+							"page.test.leftKaTotalCounter.tooltip",
+							"左鼓边敲击总计数",
+						)}
+					>
 						<Box className={styles.rim}>{leftKa}</Box>
 					</Tooltip>
-					<Tooltip content="左鼓面敲击总计数">
+					<Tooltip
+						side="bottom"
+						content={t(
+							"page.test.leftDonTotalCounter.tooltip",
+							"左鼓面敲击总计数",
+						)}
+					>
 						<Box className={styles.surface}>{leftDon}</Box>
 					</Tooltip>
-					<Tooltip content="右鼓面敲击总计数">
+					<Tooltip
+						side="bottom"
+						content={t(
+							"page.test.rightDonTotalCounter.tooltip",
+							"右鼓面敲击总计数",
+						)}
+					>
 						<Box className={styles.surface}>{rightDon}</Box>
 					</Tooltip>
-					<Tooltip content="右鼓边敲击总计数">
+					<Tooltip
+						side="bottom"
+						content={t(
+							"page.test.rightKaTotalCounter.tooltip",
+							"右鼓边敲击总计数",
+						)}
+					>
 						<Box className={styles.rim}>{rightKa}</Box>
 					</Tooltip>
-					<Tooltip content="重置计数">
+					<Tooltip
+						side="bottom"
+						content={t("page.test.resetCounters.tooltip", "重置计数")}
+					>
 						<IconButton
 							variant="soft"
 							onClick={() => {
@@ -289,22 +359,26 @@ const JoystickTestEntry = ({
 			</Flex>
 			<Flex gap="2" align="center" direction="column">
 				<Text size="2" color="red">
-					鼓面连打计数
+					<Trans i18nKey="page.test.donRendaCounter.label">鼓面连打计数</Trans>
 				</Text>
 				<Box className={classNames(styles.surface, styles.renda)}>
 					{surfaceRenda}
 				</Box>
 				<Box className={classNames(styles.surface, styles.renda)}>
-					{surfaceRendaTimes.length} 下/秒
+					{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
+						speed: surfaceRendaTimes.length,
+					})}
 				</Box>
 			</Flex>
 			<Flex gap="2" align="center" direction="column">
 				<Text size="2" color="blue">
-					鼓边连打计数
+					<Trans i18nKey="page.test.kaRendaCounter.label">鼓边连打计数</Trans>
 				</Text>
 				<Box className={classNames(styles.rim, styles.renda)}>{rimRenda}</Box>
 				<Box className={classNames(styles.rim, styles.renda)}>
-					{rimRendaTimes.length} 下/秒
+					{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
+						speed: rimRendaTimes.length,
+					})}
 				</Box>
 			</Flex>
 		</Flex>

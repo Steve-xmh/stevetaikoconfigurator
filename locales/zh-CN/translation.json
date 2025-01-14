@@ -2,6 +2,100 @@
   "window": {
     "title": "Steve Taiko Configurator"
   },
+  "topbar": {
+    "page": {
+      "config": "配置",
+      "test": "测试",
+      "about": "关于"
+    },
+    "languageSelector": {
+      "displayLanguage": {
+        "cimode": "本地化 ID"
+      }
+    },
+    "saveConfigButton": {
+      "label": "保存设置"
+    }
+  },
+  "page": {
+    "about": {
+      "appDesc": "用于配置萧鼓太鼓控制器以及测试太鼓控制器的工具",
+      "freewareTip": "此工具为免费开源的自由软件"
+    },
+    "config": {
+      "disabledTips": {
+        "webHidUnsupported": "因浏览器不支持 WebHID API ，配置页面无法使用",
+        "controllerNotConnected": "请点击左上角的按钮连接太鼓控制器"
+      },
+      "tabs": {
+        "sensor": "传感设置",
+        "keyBinding": "按键设置"
+      },
+      "keyBindingSettings": {
+        "sideKeyBinding": {
+          "label": "{side} 模拟按键",
+          "description": "当 此侧/按钮 被 敲击判定/按下 时，电控将会模拟按下的按键"
+        },
+        "keyInvokeDuration": {
+          "label": "按键模拟时长",
+          "description": "即按下按键后多久后松开，单位为毫秒，设置为 0 为按下后立即松开<1></1>如果模拟时长过长，会导致一定的延迟。如果模拟时长过短，可能会导致游戏无法及时识别到输入。<3></3>如果不清楚如何调整的话抑或是你正在使用官方游戏软件游玩，可以使用默认的 16ms 以适用于大多数游戏情况<5></5>如果你使用的是模拟器游戏等<7>基于按键事件</7>响应输入的游戏，可以设置为 0 以获得最低的延迟和最好的连打体验。"
+        }
+      },
+      "sensorSettings": {
+        "sensorMultiplier": {
+          "label": "{sensorSide} 传感器数值倍率",
+          "description": "会对该侧信号值做缩放处理，默认为 100%"
+        },
+        "triggerThreshold": {
+          "label": "判定阈值",
+          "description": "任意传感器数值超过这个数字则进入判定阶段，单位可以当作电压值（mV）理解。<1></1>过低的值容易导致串音，过高的值会需要用更大的力气敲击，甚至可能导致吃音。<3></3>可以在调节设置后在测试页面中确认敲击效果。"
+        },
+        "ledHitIndicator": {
+          "label": "启用 LED 敲击指示灯",
+          "description": "在判定的时候可以通过亮起 LED 灯指示当前敲击的结果，红色代表鼓面，蓝色代表鼓边。<1></1>可以借助此功能来确认与电脑之间的延迟情况（此指示灯可以被认为是零延迟的）"
+        },
+        "doubleSideHitDetection": {
+          "label": "启用双押判定（实验性）",
+          "description": "在鼓面两侧或鼓边两侧同时敲击时，是否判定为双押，并同时按下两个按键。"
+        }
+      }
+    },
+    "test": {
+      "keyboardTestEntry": {
+        "label": "键盘（DFJK）",
+        "frameSampleMode": {
+          "label": "逐帧采样模式"
+        }
+      },
+      "leftKaTotalCounter": {
+        "tooltip": "左鼓边敲击总计数"
+      },
+      "leftDonTotalCounter": {
+        "tooltip": "左鼓面敲击总计数"
+      },
+      "rightDonTotalCounter": {
+        "tooltip": "右鼓面敲击总计数"
+      },
+      "rightKaTotalCounter": {
+        "tooltip": "右鼓边敲击总计数"
+      },
+      "resetCounters": {
+        "tooltip": "重置计数"
+      },
+      "donRendaCounter": {
+        "label": "鼓面连打计数"
+      },
+      "rendaSpeed": {
+        "label": "{speed} 下/秒"
+      },
+      "kaRendaCounter": {
+        "label": "鼓边连打计数"
+      },
+      "joystickTestEntry": {
+        "noConnectedLabel": "手柄 {playerIndex} 未连接"
+      }
+    }
+  },
   "common": {
     "keyboardUsage": {
       "keyboardAa": "字母 A 键",
@@ -69,13 +163,43 @@
       "keyboardF9": "功能键 F9",
       "keyboardF10": "功能键 F10",
       "keyboardF11": "功能键 F11",
-      "keyboardF12": "功能键 F12"
+      "keyboardF12": "功能键 F12",
+      "keyboardRightArrow": "右箭头键",
+      "keyboardLeftArrow": "左箭头键",
+      "keyboardDownArrow": "下箭头键",
+      "keyboardUpArrow": "上箭头键"
     },
     "drumSide": {
       "leftKa": "左鼓边",
       "leftDon": "左鼓面",
       "rightDon": "右鼓面",
-      "rightKa": "右鼓边"
+      "rightKa": "右鼓边",
+      "customButton1": "自定义按钮 1",
+      "customButton2": "自定义按钮 2",
+      "customButton3": "自定义按钮 3",
+      "customButton4": "自定义按钮 4"
+    }
+  },
+  "dialogs": {
+    "taikoControllerSelector": {
+      "item": {
+        "serialNumber": "序列号：{serialNumber}",
+        "connected": "已连接"
+      },
+      "button": {
+        "connected": "已连接",
+        "selectController": "选择太鼓控制器",
+        "reloadConfig": "重载电控配置"
+      },
+      "title": "检测到的太鼓控制器",
+      "noControllerTip": "未检测到太鼓控制器<1></1>请检查你的电脑是否正确连接到了太鼓控制器<3></3>且太鼓控制器已切换到键盘模式"
+    },
+    "webHidCheck": {
+      "title": "你的浏览器不支持 WebHID API",
+      "desc": "本网页需要支持 WebHID API 的浏览器才能正常工作。请使用最新版的 Chrome/Chromuim 或 Microsoft Edge 浏览器。",
+      "refer": "详情请参考：<1><0><0>WebHID API 兼容性清单</0></0></1>",
+      "referLink": "WebHID API 兼容性清单",
+      "browseOnly": "仅浏览"
     }
   }
 }

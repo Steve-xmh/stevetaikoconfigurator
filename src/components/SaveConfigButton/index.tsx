@@ -22,6 +22,7 @@ import { sendFeatureReportToHid } from "$/utils/hid.ts";
 import { Button } from "@radix-ui/themes";
 import { atom, useAtomValue, useStore } from "jotai";
 import { useCallback } from "react";
+import { Trans } from "react-i18next";
 
 const savingConfigAtom = atom(false);
 
@@ -96,7 +97,7 @@ export const SaveConfigButton = () => {
 			variant={shouldSaveConfig ? "solid" : "surface"}
 			onClick={saveConfig}
 		>
-			保存设置
+			<Trans i18nKey="topbar.saveConfigButton.label">保存设置</Trans>
 		</Button>
 	);
 };

@@ -1,6 +1,7 @@
 name: Build
 on:
   push:
+    branches-ignore: ["l10n_*"]
   workflow_dispatch:
 
 concurrency:
