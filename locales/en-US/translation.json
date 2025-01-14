@@ -84,13 +84,13 @@
         "tooltip": "Reset counters"
       },
       "donRendaCounter": {
-        "label": "Surface hid drumroll counter"
+        "label": "Surface drumroll counter"
       },
       "rendaSpeed": {
         "label": "{speed} hit/s"
       },
       "kaRendaCounter": {
-        "label": "Rim hit drumroll counter"
+        "label": "Rim drumroll counter"
       },
       "joystickTestEntry": {
         "noConnectedLabel": "Joystick {playerIndex} disconnected."
