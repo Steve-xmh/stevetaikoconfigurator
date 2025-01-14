@@ -4,50 +4,50 @@
   },
   "topbar": {
     "page": {
-      "config": "配置",
-      "test": "测试",
-      "about": "关于"
+      "config": "Config",
+      "test": "Test",
+      "about": "About"
     },
     "languageSelector": {
       "displayLanguage": {
-        "cimode": "本地化 ID"
+        "cimode": "Localization ID"
       }
     },
     "saveConfigButton": {
-      "label": "保存设置"
+      "label": "Save Config"
     }
   },
   "page": {
     "about": {
-      "appDesc": "用于配置萧鼓太鼓控制器以及测试太鼓控制器的工具",
-      "freewareTip": "此工具为免费开源的自由软件"
+      "appDesc": "A tool to config SteveTaikoCon Controller and test any type of Tatacon.",
+      "freewareTip": "This tool is an open-sourced freeware."
     },
     "config": {
       "disabledTips": {
-        "webHidUnsupported": "因浏览器不支持 WebHID API ，配置页面无法使用",
-        "controllerNotConnected": "请点击左上角的按钮连接太鼓控制器"
+        "webHidUnsupported": "Configuration page is disabled as your browser doesn't support WebHID API.",
+        "controllerNotConnected": "Please connect your SteveTaikoCon / Tatacon by clicking button on the top-left."
       },
       "tabs": {
-        "sensor": "传感设置",
-        "keyBinding": "按键设置"
+        "sensor": "Sensors",
+        "keyBinding": "Key Bindings"
       },
       "keyBindingSettings": {
         "sideKeyBinding": {
-          "label": "{side} 模拟按键",
-          "description": "当 此侧/按钮 被 敲击判定/按下 时，电控将会模拟按下的按键"
+          "label": "Key Binding of {side}",
+          "description": "The key that your controller will emulate to press when this side / button on controller is hit / pressed."
         },
         "keyInvokeDuration": {
-          "label": "按键模拟时长",
-          "description": "即按下按键后多久后松开，单位为毫秒，设置为 0 为按下后立即松开<1></1>如果模拟时长过长，会导致一定的延迟。如果模拟时长过短，可能会导致游戏无法及时识别到输入。<3></3>如果不清楚如何调整的话抑或是你正在使用官方游戏软件游玩，可以使用默认的 16ms 以适用于大多数游戏情况<5></5>如果你使用的是模拟器游戏等<7>基于按键事件</7>响应输入的游戏，可以设置为 0 以获得最低的延迟和最好的连打体验。"
+          "label": "Key invoke duration",
+          "description": "Define how long will the key be pressed. In milliseconds. Set to 0 for instant release.<1></1>If invoke time is too long, it may cause lagging. Or if invoke time is too short, the game maybe unable to detect the input.<3></3>If you can't determine how to adjust this value or you are playing official game, set to 16 ms for most of the game and cases.<5></5>If you are using emulators or any game that is <7>based on input events</7>, you can set to 0 for best experienses and lowest latency."
         }
       },
       "sensorSettings": {
         "sensorMultiplier": {
-          "label": "{sensorSide} 传感器数值倍率",
-          "description": "会对该侧信号值做缩放处理，默认为 100%"
+          "label": "Sensor value multiplier of {sensorSide}",
+          "description": "Will multiply the sensor value of this side by the number, default is 100%."
         },
         "triggerThreshold": {
-          "label": "判定阈值",
+          "label": "Trigger threshold",
           "description": "任意传感器数值超过这个数字则进入判定阶段，单位可以当作电压值（mV）理解。<1></1>过低的值容易导致串音，过高的值会需要用更大的力气敲击，甚至可能导致吃音。<3></3>可以在调节设置后在测试页面中确认敲击效果。"
         },
         "ledHitIndicator": {
