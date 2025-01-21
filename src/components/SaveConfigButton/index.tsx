@@ -8,13 +8,13 @@ import {
 	keyInvokeDurationAtom,
 	ledHitIndicatorAtom,
 	leftDonKeyAtom,
-	leftDonSensorMultiplierAtom,
+	leftKaSensorSubtrahendAtom,
 	leftKaKeyAtom,
-	leftKaSensorMultiplierAtom,
+	leftDonSensorSubtrahendAtom,
 	rightDonKeyAtom,
-	rightDonSensorMultiplierAtom,
+	rightDonSensorSubtrahendAtom,
 	rightKaKeyAtom,
-	rightKaSensorMultiplierAtom,
+	rightKaSensorSubtrahendAtom,
 	shouldSaveConfigAtom,
 	triggerThresholdAtom,
 } from "$/states/main.ts";
@@ -35,7 +35,7 @@ export const SaveConfigButton = () => {
 	const saveConfig = useCallback(async () => {
 		store.set(savingConfigAtom, true);
 		try {
-			const commonConfigReport = new DataView(new ArrayBuffer(23));
+			const commonConfigReport = new DataView(new ArrayBuffer(15));
 			commonConfigReport.setUint8(0, 0x11);
 			commonConfigReport.setUint8(1, 0x00);
 			let boolFlags = 0;
@@ -44,24 +44,24 @@ export const SaveConfigButton = () => {
 			commonConfigReport.setUint8(2, boolFlags);
 			commonConfigReport.setUint16(3, store.get(keyInvokeDurationAtom), true);
 			commonConfigReport.setUint16(5, store.get(triggerThresholdAtom), true);
-			commonConfigReport.setFloat32(
+			commonConfigReport.setUint16(
 				7,
-				store.get(leftKaSensorMultiplierAtom),
+				store.get(leftKaSensorSubtrahendAtom),
 				true,
 			);
-			commonConfigReport.setFloat32(
+			commonConfigReport.setUint16(
+				9,
+				store.get(leftDonSensorSubtrahendAtom),
+				true,
+			);
+			commonConfigReport.setUint16(
 				11,
-				store.get(leftDonSensorMultiplierAtom),
+				store.get(rightDonSensorSubtrahendAtom),
 				true,
 			);
-			commonConfigReport.setFloat32(
-				15,
-				store.get(rightDonSensorMultiplierAtom),
-				true,
-			);
-			commonConfigReport.setFloat32(
-				19,
-				store.get(rightKaSensorMultiplierAtom),
+			commonConfigReport.setUint16(
+				13,
+				store.get(rightKaSensorSubtrahendAtom),
 				true,
 			);
 

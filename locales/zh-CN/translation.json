@@ -43,9 +43,9 @@
         }
       },
       "sensorSettings": {
-        "sensorMultiplier": {
-          "label": "{sensorSide} 传感器数值倍率",
-          "description": "会对该侧信号值做缩放处理，默认为 100%"
+        "sensorSubtrahend": {
+          "label": "{sensorSide} 传感器数值减数",
+          "description": "会将该侧信号值减去指定数值以增加需要将其触发的力度，默认为 0"
         },
         "triggerThreshold": {
           "label": "判定阈值",

@@ -84,10 +84,10 @@ export const connectedHidDevicesAtom = atom<HidDevice | null>(null);
 export const ledHitIndicatorAtom = atom(true);
 export const doubleSideHitDetectionAtom = atom(false);
 export const triggerThresholdAtom = atom(1);
-export const leftKaSensorMultiplierAtom = atom(1);
-export const leftDonSensorMultiplierAtom = atom(1);
-export const rightDonSensorMultiplierAtom = atom(1);
-export const rightKaSensorMultiplierAtom = atom(1);
+export const leftKaSensorSubtrahendAtom = atom(0);
+export const leftDonSensorSubtrahendAtom = atom(0);
+export const rightDonSensorSubtrahendAtom = atom(0);
+export const rightKaSensorSubtrahendAtom = atom(0);
 
 // 按键设置
 export const keyInvokeDurationAtom = atom(16);

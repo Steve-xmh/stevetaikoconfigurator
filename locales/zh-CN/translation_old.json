@@ -1,0 +1,12 @@
+{
+  "page": {
+    "config": {
+      "sensorSettings": {
+        "sensorMultiplier": {
+          "label": "{sensorSide} 传感器数值倍率",
+          "description": "会对该侧信号值做缩放处理，默认为 100%"
+        }
+      }
+    }
+  }
+}

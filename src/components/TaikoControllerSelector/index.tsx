@@ -9,13 +9,13 @@ import {
 	keyInvokeDurationAtom,
 	ledHitIndicatorAtom,
 	leftDonKeyAtom,
-	leftDonSensorMultiplierAtom,
+	leftKaSensorSubtrahendAtom,
 	leftKaKeyAtom,
-	leftKaSensorMultiplierAtom,
+	leftDonSensorSubtrahendAtom,
 	rightDonKeyAtom,
-	rightDonSensorMultiplierAtom,
+	rightDonSensorSubtrahendAtom,
 	rightKaKeyAtom,
-	rightKaSensorMultiplierAtom,
+	rightKaSensorSubtrahendAtom,
 	triggerThresholdAtom,
 	type KeyboardUsage,
 } from "$/states/main.ts";
@@ -133,20 +133,20 @@ export const TaikoControllerSelector = () => {
 		store.set(triggerThresholdAtom, commonConfigReport.getUint16(5, true));
 
 		store.set(
-			leftKaSensorMultiplierAtom,
-			commonConfigReport.getFloat32(7, true),
+			leftKaSensorSubtrahendAtom,
+			commonConfigReport.getUint16(7, true),
 		);
 		store.set(
-			leftDonSensorMultiplierAtom,
-			commonConfigReport.getFloat32(11, true),
+			leftDonSensorSubtrahendAtom,
+			commonConfigReport.getUint16(9, true),
 		);
 		store.set(
-			rightDonSensorMultiplierAtom,
-			commonConfigReport.getFloat32(15, true),
+			rightDonSensorSubtrahendAtom,
+			commonConfigReport.getUint16(11, true),
 		);
 		store.set(
-			rightKaSensorMultiplierAtom,
-			commonConfigReport.getFloat32(19, true),
+			rightKaSensorSubtrahendAtom,
+			commonConfigReport.getUint16(13, true),
 		);
 
 		store.set(leftKaKeyAtom, pcConfigReport.getUint8(1) as KeyboardUsage);

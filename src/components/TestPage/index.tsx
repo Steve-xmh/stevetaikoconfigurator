@@ -49,7 +49,7 @@ const KeyboardTestEntry = () => {
 	};
 
 	return (
-		<Flex align="center" gap="4">
+		<div className={styles.testEntry}>
 			<TaikoVisualizerForKeyboard
 				fillColor="transparent"
 				outlineColor="var(--gray-10)"
@@ -103,7 +103,7 @@ const KeyboardTestEntry = () => {
 						onCheckedChange={setUseFrameSampleMode}
 					/>
 				</Text>
-				<Flex gap="2">
+				<div className={styles.hitCounters}>
 					<Tooltip
 						side="bottom"
 						content={t(
@@ -156,34 +156,38 @@ const KeyboardTestEntry = () => {
 							<ReloadIcon />
 						</IconButton>
 					</Tooltip>
-				</Flex>
+				</div>
 			</Flex>
 
-			<Flex gap="2" align="center" direction="column">
-				<Text size="2" color="red">
-					<Trans i18nKey="page.test.donRendaCounter.label">鼓面连打计数</Trans>
-				</Text>
-				<Box className={classNames(styles.surface, styles.renda)}>
-					{surfaceRenda}
-				</Box>
-				<Box className={classNames(styles.surface, styles.renda)}>
-					{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
-						speed: surfaceRendaTimes.length,
-					})}
-				</Box>
-			</Flex>
-			<Flex gap="2" align="center" direction="column">
-				<Text size="2" color="blue">
-					<Trans i18nKey="page.test.kaRendaCounter.label">鼓边连打计数</Trans>
-				</Text>
-				<Box className={classNames(styles.rim, styles.renda)}>{rimRenda}</Box>
-				<Box className={classNames(styles.rim, styles.renda)}>
-					{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
-						speed: rimRendaTimes.length,
-					})}
-				</Box>
-			</Flex>
-		</Flex>
+			<div className={styles.rendaCounters}>
+				<Flex gap="2" align="center" direction="column">
+					<Text size="2" color="red">
+						<Trans i18nKey="page.test.donRendaCounter.label">
+							鼓面连打计数
+						</Trans>
+					</Text>
+					<Box className={classNames(styles.surface, styles.renda)}>
+						{surfaceRenda}
+					</Box>
+					<Box className={classNames(styles.surface, styles.renda)}>
+						{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
+							speed: surfaceRendaTimes.length,
+						})}
+					</Box>
+				</Flex>
+				<Flex gap="2" align="center" direction="column">
+					<Text size="2" color="blue">
+						<Trans i18nKey="page.test.kaRendaCounter.label">鼓边连打计数</Trans>
+					</Text>
+					<Box className={classNames(styles.rim, styles.renda)}>{rimRenda}</Box>
+					<Box className={classNames(styles.rim, styles.renda)}>
+						{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
+							speed: rimRendaTimes.length,
+						})}
+					</Box>
+				</Flex>
+			</div>
+		</div>
 	);
 };
 
@@ -247,9 +251,8 @@ const JoystickTestEntry = ({
 	}, [playerIndex]);
 
 	return (
-		<Flex
-			align="center"
-			gap="4"
+		<div
+			className={styles.testEntry}
 			style={{
 				opacity: gamepadName ? 1 : 0.5,
 				pointerEvents: gamepadName ? "auto" : "none",
@@ -302,7 +305,7 @@ const JoystickTestEntry = ({
 							{ playerIndex: playerIndex + 1 },
 						)}
 				</Text>
-				<Flex gap="2">
+				<div className={styles.hitCounters}>
 					<Tooltip
 						side="bottom"
 						content={t(
@@ -355,33 +358,37 @@ const JoystickTestEntry = ({
 							<ReloadIcon />
 						</IconButton>
 					</Tooltip>
+				</div>
+			</Flex>
+			<div className={styles.rendaCounters}>
+				<Flex gap="2" align="center" direction="column">
+					<Text size="2" color="red">
+						<Trans i18nKey="page.test.donRendaCounter.label">
+							鼓面连打计数
+						</Trans>
+					</Text>
+					<Box className={classNames(styles.surface, styles.renda)}>
+						{surfaceRenda}
+					</Box>
+					<Box className={classNames(styles.surface, styles.renda)}>
+						{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
+							speed: surfaceRendaTimes.length,
+						})}
+					</Box>
 				</Flex>
-			</Flex>
-			<Flex gap="2" align="center" direction="column">
-				<Text size="2" color="red">
-					<Trans i18nKey="page.test.donRendaCounter.label">鼓面连打计数</Trans>
-				</Text>
-				<Box className={classNames(styles.surface, styles.renda)}>
-					{surfaceRenda}
-				</Box>
-				<Box className={classNames(styles.surface, styles.renda)}>
-					{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
-						speed: surfaceRendaTimes.length,
-					})}
-				</Box>
-			</Flex>
-			<Flex gap="2" align="center" direction="column">
-				<Text size="2" color="blue">
-					<Trans i18nKey="page.test.kaRendaCounter.label">鼓边连打计数</Trans>
-				</Text>
-				<Box className={classNames(styles.rim, styles.renda)}>{rimRenda}</Box>
-				<Box className={classNames(styles.rim, styles.renda)}>
-					{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
-						speed: rimRendaTimes.length,
-					})}
-				</Box>
-			</Flex>
-		</Flex>
+				<Flex gap="2" align="center" direction="column">
+					<Text size="2" color="blue">
+						<Trans i18nKey="page.test.kaRendaCounter.label">鼓边连打计数</Trans>
+					</Text>
+					<Box className={classNames(styles.rim, styles.renda)}>{rimRenda}</Box>
+					<Box className={classNames(styles.rim, styles.renda)}>
+						{t("page.test.rendaSpeed.label", "{speed} 下/秒", {
+							speed: rimRendaTimes.length,
+						})}
+					</Box>
+				</Flex>
+			</div>
+		</div>
 	);
 };
 

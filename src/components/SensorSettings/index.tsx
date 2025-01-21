@@ -1,10 +1,10 @@
 import {
 	doubleSideHitDetectionAtom,
 	ledHitIndicatorAtom,
-	leftDonSensorMultiplierAtom,
-	leftKaSensorMultiplierAtom,
-	rightDonSensorMultiplierAtom,
-	rightKaSensorMultiplierAtom,
+	leftKaSensorSubtrahendAtom,
+	leftDonSensorSubtrahendAtom,
+	rightDonSensorSubtrahendAtom,
+	rightKaSensorSubtrahendAtom,
 	shouldSaveConfigAtom,
 	triggerThresholdAtom,
 } from "$/states/main.ts";
@@ -13,18 +13,18 @@ import { useAtom, useSetAtom } from "jotai";
 import { useMemo } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-export const SENSOR_MULTIPLIER_ATOM_MAPS = {
-	leftKa: leftKaSensorMultiplierAtom,
-	leftDon: leftDonSensorMultiplierAtom,
-	rightDon: rightDonSensorMultiplierAtom,
-	rightKa: rightKaSensorMultiplierAtom,
+const SENSOR_MULTIPLIER_ATOM_MAPS = {
+	leftKa: leftKaSensorSubtrahendAtom,
+	leftDon: leftDonSensorSubtrahendAtom,
+	rightDon: rightDonSensorSubtrahendAtom,
+	rightKa: rightKaSensorSubtrahendAtom,
 } as const;
 
-const SensorMultiplierSetting = (props: {
+const SensorSubtrahendSetting = (props: {
 	side: keyof typeof SENSOR_MULTIPLIER_ATOM_MAPS;
 }) => {
-	const sensorMultiplierAtom = SENSOR_MULTIPLIER_ATOM_MAPS[props.side];
-	const [sensorMultiplier, setSensorMultiplier] = useAtom(sensorMultiplierAtom);
+	const sensorSubtrahendAtom = SENSOR_MULTIPLIER_ATOM_MAPS[props.side];
+	const [sensorSubtrahend, setSensorSubtrahend] = useAtom(sensorSubtrahendAtom);
 	const setShouldSaveConfig = useSetAtom(shouldSaveConfigAtom);
 
 	const { t } = useTranslation();
@@ -49,16 +49,16 @@ const SensorMultiplierSetting = (props: {
 				<Flex direction="column" flexShrink="1" flexGrow="1" flexBasis="10em">
 					<Text size="2">
 						{t(
-							"page.config.sensorSettings.sensorMultiplier.label",
-							"{sensorSide} 传感器数值倍率",
+							"page.config.sensorSettings.sensorSubtrahend.label",
+							"{sensorSide} 传感器数值减数",
 							{
 								sensorSide: labelText,
 							},
 						)}
 					</Text>
 					<Text size="1" color="gray">
-						<Trans i18nKey="page.config.sensorSettings.sensorMultiplier.description">
-							会对该侧信号值做缩放处理，默认为 100%
+						<Trans i18nKey="page.config.sensorSettings.sensorSubtrahend.description">
+							会将该侧信号值减去指定数值以增加需要将其触发的力度，默认为 0
 						</Trans>
 					</Text>
 				</Flex>
@@ -70,21 +70,21 @@ const SensorMultiplierSetting = (props: {
 					min={0}
 					max={10}
 					step={0.01}
-					value={sensorMultiplier}
+					value={sensorSubtrahend}
 					onChange={(e) => {
-						setSensorMultiplier(e.currentTarget.valueAsNumber);
+						setSensorSubtrahend(e.currentTarget.valueAsNumber);
 						setShouldSaveConfig(true);
 					}}
 				/>
 			</Flex>
 			<Box width="100%">
 				<Slider
-					value={[sensorMultiplier]}
+					value={[sensorSubtrahend]}
 					min={0}
 					max={10}
 					step={0.01}
 					onValueChange={(e) => {
-						setSensorMultiplier(e[0]);
+						setSensorSubtrahend(e[0]);
 						setShouldSaveConfig(true);
 					}}
 				/>
@@ -236,10 +236,10 @@ export const SensorSettings = () => {
 			<TriggerThresholdSetting />
 			<LedHitIndicatorSetting />
 			<DoubleSideHitDetectionSetting />
-			<SensorMultiplierSetting side="leftKa" />
-			<SensorMultiplierSetting side="leftDon" />
-			<SensorMultiplierSetting side="rightDon" />
-			<SensorMultiplierSetting side="rightKa" />
+			<SensorSubtrahendSetting side="leftKa" />
+			<SensorSubtrahendSetting side="leftDon" />
+			<SensorSubtrahendSetting side="rightDon" />
+			<SensorSubtrahendSetting side="rightKa" />
 		</Flex>
 	);
 };
