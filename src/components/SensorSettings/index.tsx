@@ -68,8 +68,8 @@ const SensorSubtrahendSetting = (props: {
 					}}
 					type="number"
 					min={0}
-					max={10}
-					step={0.01}
+					max={5000}
+					step={1}
 					value={sensorSubtrahend}
 					onChange={(e) => {
 						setSensorSubtrahend(e.currentTarget.valueAsNumber);
@@ -81,8 +81,8 @@ const SensorSubtrahendSetting = (props: {
 				<Slider
 					value={[sensorSubtrahend]}
 					min={0}
-					max={10}
-					step={0.01}
+					max={5000}
+					step={1}
 					onValueChange={(e) => {
 						setSensorSubtrahend(e[0]);
 						setShouldSaveConfig(true);
